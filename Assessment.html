@@ -15,17 +15,47 @@ a{color:#8a5a00}a:hover{color:#5c3c00}
 button{font-family:inherit}
 button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
 .card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 18px;border-radius:10px;border:0;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:10px;border:0;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:10px;border:0;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;cursor:pointer}
 @media (max-width:900px){
   .sbnav{flex-direction:row !important;overflow-x:auto}
   .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
 }
+
+/* --- TAMBAHAN CSS LOGO MULAI DARI SINI --- */
+@keyframes logoLoadEffect {
+  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.logo-x-anim {
+  height: 28px;
+  width: auto;
+  margin: 0 1px;
+  animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+.logo-text {
+  font-family: 'Noto Sans', system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #1b1b1a;
+  display: inline-flex;
+  align-items: center;
+}
+/* --- TAMBAHAN CSS LOGO SELESAI --- */
 </style>
 </helmet>
 
 <div style="display:flex;flex-direction:column;min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
   <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0">
-    <div style="font-size:20px;font-weight:700;padding-left:12px">Radixa</div>
+    
+    <!-- --- TAMBAHAN HTML LOGO MULAI DARI SINI --- -->
+    <div class="logo-text" style="padding-left:12px; cursor:pointer;">
+      RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
+    </div>
+    <!-- --- TAMBAHAN HTML LOGO SELESAI --- -->
+
     <div style="display:flex;align-items:center;gap:20px">
       <div style="display:flex;padding:3px;gap:3px;background:#f1efe8;border-radius:999px">
         <button type="button" onClick="{{onId}}" style="{{idSty}}">ID</button>
