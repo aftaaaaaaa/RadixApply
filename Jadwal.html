@@ -19,6 +19,27 @@ button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2p
   .sbnav{flex-direction:row !important;overflow-x:auto}
   .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
 }
+  /* --- TAMBAHAN CSS LOGO MULAI DARI SINI --- */
+@keyframes logoLoadEffect {
+  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.logo-x-anim {
+  height: 28px;
+  width: auto;
+  margin: 0 1px;
+  animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+.logo-text {
+  font-family: 'Noto Sans', system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #1b1b1a;
+  display: inline-flex;
+  align-items: center;
+}
 </style>
 </helmet>
 
