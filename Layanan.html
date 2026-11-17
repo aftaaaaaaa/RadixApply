@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Layanan Radixa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  <header style="border-bottom:1px solid #e8e6e0;background:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#1b1b1a;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+      <nav aria-label="Menu utama" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><a href="{{n.href}}" aria-current="{{n.cur}}" style="{{n.sty}}">{{n.label}}</a></sc-for>
+      </nav>
+      <div style="display:flex;gap:10px"><a href="Login.html" class="btn2">Masuk</a><a href="Login.html" class="btn">Daftar gratis</a></div>
+    </div>
+  </header>
+
+  <main style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:32px 24px 56px;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <h1 style="margin:0;font-size:30px;font-weight:700">Layanan Radixa</h1>
+      <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5;max-width:640px">Produk Radixa untuk pencari kerja dan perusahaan. Layanan baru akan muncul di sini saat siap dipakai.</p>
+    </div>
+
+    <section style="display:flex;flex-direction:column;gap:14px">
+      <h2 style="margin:0;font-size:20px;font-weight:700">Untuk pencari kerja</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+        <sc-for list="{{seekers}}" as="v" hint-placeholder-count="4">
+          <article class="card" style="padding:20px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="margin:0;font-size:17px;font-weight:700">{{v.title}}</h3><span style="{{v.badgeSty}}">{{v.badge}}</span></div>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#3b3a36">{{v.text}}</p>
+            <div><a href="{{v.href}}" style="font-size:14px;font-weight:600">{{v.cta}}</a></div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:14px">
+      <h2 style="margin:0;font-size:20px;font-weight:700">Untuk perusahaan</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+        <sc-for list="{{companies}}" as="v" hint-placeholder-count="3">
+          <article class="card" style="padding:20px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3 style="margin:0;font-size:17px;font-weight:700">{{v.title}}</h3><span style="{{v.badgeSty}}">{{v.badge}}</span></div>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#3b3a36">{{v.text}}</p>
+            <sc-if value="{{v.canNotify}}" hint-placeholder-val="{{true}}"><div><button type="button" onClick="{{v.onNotify}}" aria-pressed="{{v.notified}}" style="{{v.notifySty}}">{{v.notifyLabel}}</button></div></sc-if>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+    <p style="margin:0;font-size:12px;color:#6b6962">Daftar layanan di halaman ini bersifat contoh. Layanan bertanda "Segera hadir" belum tersedia.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const ACTIVE = 'svc';
+const NAV = [
+  { id: 'home', label: 'Beranda', href: 'index.html' },
+  { id: 'jobs', label: 'Cari lowongan', href: 'Lowongan.html' },
+  { id: 'events', label: 'Event jobs', href: 'EventJobs.html' },
+  { id: 'ai', label: 'Radixa AI', href: 'RadixaAI.html' },
+  { id: 'svc', label: 'Layanan', href: 'Layanan.html' }
+];
+const ON = 'padding:2px 10px;border-radius:999px;background:#e4f1e9;color:#25603d;font-size:11px;font-weight:700;white-space:nowrap';
+const SOON = 'padding:2px 10px;border-radius:999px;background:#efede6;color:#3b3a36;font-size:11px;font-weight:700;white-space:nowrap';
+const SEEKERS = [
+  { title: 'Radixa Portal', text: 'My Profile, CV per lowongan, lamaran, assessment, dan jadwal wawancara dalam satu akun.', badge: 'Tersedia', badgeSty: ON, href: 'Login.html', cta: 'Masuk ke portal' },
+  { title: 'Cari lowongan', text: 'Telusuri lowongan terbuka, lihat kualifikasi, dan lamar langsung dari satu halaman.', badge: 'Tersedia', badgeSty: ON, href: 'Lowongan.html', cta: 'Cari lowongan' },
+  { title: 'Radixa AI', text: 'Asisten untuk menulis CV, berlatih wawancara, dan memilih arah karier.', badge: 'Tersedia', badgeSty: ON, href: 'RadixaAI.html', cta: 'Coba Radixa AI' },
+  { title: 'Event jobs', text: 'Job fair, webinar, dan walk-in interview. Pengingat otomatis masuk ke Schedule.', badge: 'Tersedia', badgeSty: ON, href: 'EventJobs.html', cta: 'Lihat event' }
+];
+const COMPANIES = [
+  { id: 'c1', title: 'Career Page perusahaan', text: 'Halaman karier bermerek untuk memasang lowongan dan menerima lamaran langsung.', badge: 'Segera hadir', badgeSty: SOON },
+  { id: 'c2', title: 'Assessment kandidat', text: 'Buat tes logika, teknis, dan bahasa, lalu kirim ke kandidat dan lihat hasilnya.', badge: 'Segera hadir', badgeSty: SOON },
+  { id: 'c3', title: 'Penjadwalan wawancara', text: 'Atur jadwal wawancara dan kirim undangan ke kandidat dari satu tempat.', badge: 'Segera hadir', badgeSty: SOON }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { notify: {} };
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      nav: NAV.map((n) => ({ label: n.label, href: n.href, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'padding:8px 14px;border-radius:999px;font-size:14px;text-decoration:none;color:#1b1b1a;font-weight:' + (n.id === ACTIVE ? 700 : 500) + ';background:' + (n.id === ACTIVE ? '#fdf1cf' : 'transparent') })),
+      seekers: SEEKERS,
+      companies: COMPANIES.map((c) => {
+        const on = !!s.notify[c.id];
+        return Object.assign({}, c, { canNotify: true, notified: on, notifyLabel: on ? 'Kamu akan diberi tahu' : 'Beri tahu saya saat tersedia',
+          notifySty: 'height:38px;padding:0 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (on ? '#25603d' : '#d9d6cd') + ';background:' + (on ? '#e4f1e9' : '#fff') + ';color:' + (on ? '#25603d' : '#1b1b1a'),
+          onNotify: () => this.setState({ notify: Object.assign({}, s.notify, { [c.id]: !on }) }) });
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

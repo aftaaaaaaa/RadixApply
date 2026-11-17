@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>My Applications Radixa</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+@media (max-width:900px){
+  .sbnav{flex-direction:row !important;overflow-x:auto}
+  .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
+}
+</style>
+
+<!-- Tambahkan CSS ini di dalam tag <head> atau <helmet> Anda untuk efek animasi -->
+<style>
+  /* Animasi berdetak/muncul saat halaman diload */
+  @keyframes logoLoadEffect {
+    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+    60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .logo-x-anim {
+    height: 28px; /* Sesuaikan dengan tinggi font */
+    width: auto;
+    margin: 0 1px;
+    animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  .logo-text {
+    font-family: 'Noto Sans', system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #1b1b1a; /* Warna teks RADI dan A */
+    display: inline-flex;
+    align-items: center;
+  }
+</style>
+
+</helmet>
+
+<div style="display:flex;flex-direction:column;min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0">
+    <div class="logo-text" style="padding-left:12px; cursor:pointer;">
+  RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
+</div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div style="display:flex;padding:3px;gap:3px;background:#f1efe8;border-radius:999px">
+        <button type="button" onClick="{{onId}}" style="{{idSty}}">ID</button>
+        <button type="button" onClick="{{onEn}}" style="{{enSty}}">EN</button>
+      </div>
+      <a href="index.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
+    </div>
+  </header>
+  <div style="display:flex;flex:1 1 auto;flex-wrap:wrap">
+    <aside class="sb" style="{{asideSty}}">
+      <nav class="sbnav" style="display:flex;flex-direction:column;gap:4px;padding:16px 12px;flex:1">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="9">
+          <a href="{{n.href}}" style="{{n.sty}}" aria-current="{{n.cur}}" title="{{n.label}}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"></path></svg>
+            <span style="{{labelSty}}">{{n.label}}</span>
+            <sc-if value="{{n.dot}}" hint-placeholder-val="{{false}}"><span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#d93025" aria-label="Ada saran baru"></span></sc-if>
+          </a>
+        </sc-for>
+      </nav>
+      <button type="button" onClick="{{onCollapse}}" style="display:flex;align-items:center;gap:12px;margin:8px 12px 16px;padding:10px 14px;border:0;background:none;font-size:14px;font-weight:500;color:#3b3a36;cursor:pointer;border-radius:10px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"></path></svg>
+        <span style="{{labelSty}}">Ciutkan menu</span>
+      </button>
+    </aside>
+
+    <main style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <h1 style="margin:0;font-size:28px;font-weight:700">My Applications</h1>
+        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Semua lamaran yang sudah kamu kirim dan posisinya sekarang.</p>
+      </div>
+
+      <div role="group" aria-label="Filter status" style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{filters}}" as="fl" hint-placeholder-count="3">
+          <button type="button" onClick="{{fl.on}}" aria-pressed="{{fl.sel}}" style="{{fl.sty}}">{{fl.label}}</button>
+        </sc-for>
+      </div>
+
+      <div class="card" style="display:flex;flex-direction:column;max-width:980px">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;padding:18px 20px;border-bottom:1px solid #efede6">
+            <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:16px;font-weight:700">{{r.role}}</span>
+              <span style="font-size:14px;color:#4a4944">{{r.company}}</span>
+              <span style="font-size:12px;color:#5f5d57">Dikirim {{r.sent}} · CV {{r.cv}}</span>
+            </div>
+            <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:6px">
+              <span style="{{r.pillSty}}">{{r.status}}</span>
+              <span style="font-size:13px;line-height:1.5;color:#3b3a36">{{r.next}}</span>
+            </div>
+            <a href="{{r.href}}" style="font-size:14px;font-weight:600;white-space:nowrap">{{r.cta}}</a>
+          </div>
+        </sc-for>
+        <sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin:0;padding:24px 20px;font-size:14px;color:#5f5d57">Tidak ada lamaran dengan status ini.</p></sc-if>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const NAV = [
+  { id: 'dash', label: 'Dashboard', href: 'Dashboard.html', d: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z' },
+  { id: 'profile', label: 'My Profile', href: 'MyProfile.html', d: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 20c0-3.5 3.6-6 8-6s8 2.5 8 6' },
+  { id: 'cv', label: 'My CV', href: 'CVSaya.html', d: 'M4 20l1-4L16 5l3 3L8 19zM14 7l3 3' },
+  { id: 'cvs', label: 'CV saya', href: 'CVSaya.html', d: 'M8 4h9v13H8zM5 7v13h9', sub: true },
+  { id: 'isi', label: 'Isi CV', href: 'IsiCV.html', d: 'M5 7h14M5 12h14M5 17h9', sub: true },
+  { id: 'saran', label: 'Saran', href: 'Saran.html', d: 'M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z', sub: true, dot: true },
+  { id: 'apps', label: 'My Applications', href: 'Lamaran.html', d: 'M4 8h16v11H4zM9 8V5h6v3M4 13h16' },
+  { id: 'assess', label: 'Assessment', href: 'Assessment.html', d: 'M8 4h8v3H8zM6 6h12v14H6zM9 12h6M9 16h4' },
+  { id: 'sched', label: 'Schedule', href: 'Jadwal.html', d: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4' },
+  { id: 'career', label: 'Career Page', href: 'CareerPage.html', d: 'M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18' }
+];
+const ACTIVE = 'apps';
+const APPS = [
+  { role: 'Data Analyst', company: 'PT Kreasi Data · Jakarta', sent: '3 Nov 2026', cv: 'Data Analyst (terkunci)', status: 'Wawancara', open: true, next: 'Wawancara HR, Rabu 18 Nov 2026, 10.00 WIB lewat Google Meet.', cta: 'Lihat jadwal', href: 'Jadwal.html', col: 'background:#e3ecfb;color:#1d4a9c' },
+  { role: 'Business Intelligence Analyst', company: 'Tokoloka · Tangerang', sent: '9 Nov 2026', cv: 'Data Analyst (terkunci)', status: 'Assessment', open: true, next: 'Kerjakan Tes Logika dan Data sebelum 20 Nov 2026, 23.59 WIB.', cta: 'Buka assessment', href: 'Assessment.html', col: 'background:#fdf1cf;color:#7a4f00' },
+  { role: 'Junior Data Analyst', company: 'Nusa Pangan · Depok', sent: '12 Nov 2026', cv: 'Data Analyst (terkunci)', status: 'Dikirim', open: true, next: 'Menunggu tinjauan. Biasanya 5 sampai 7 hari kerja.', cta: 'Lihat lowongan', href: 'CareerPage.html', col: 'background:#efede6;color:#3b3a36' },
+  { role: 'BI Analyst', company: 'Bank Nusantara Digital · Jakarta', sent: '20 Okt 2026', cv: 'Data Analyst (terkunci)', status: 'Tidak lanjut', open: false, next: 'Perusahaan memilih kandidat lain untuk posisi ini.', cta: 'Cari lowongan serupa', href: 'CareerPage.html', col: 'background:#fbeceb;color:#8c1d18' }
+];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lang: 'id', collapsed: false, filter: 'all' };
+  }
+  renderVals() {
+    const s = this.state;
+    const sbW = s.collapsed ? 76 : 240;
+    const nav = NAV.map((n) => {
+      const sub = n.id === ACTIVE && n.sub;
+      const top = n.id === ACTIVE && !n.sub;
+      const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
+      return {
+        label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 600 : 500) +
+          ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px'
+      };
+    });
+    const pill = (on) => 'height:34px;padding:0 18px;border:0;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;' + (on ? 'background:#1b1b1a;color:#fff' : 'background:transparent;color:#4a4944');
+    const inFilter = (a) => s.filter === 'all' || (s.filter === 'open' ? a.open : !a.open);
+    const rows = APPS.filter(inFilter).map((a) => ({
+      role: a.role, company: a.company, sent: a.sent, cv: a.cv, status: a.status, next: a.next, cta: a.cta, href: a.href,
+      pillSty: 'align-self:flex-start;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;' + a.col
+    }));
+    const fdefs = [['all', 'Semua (' + APPS.length + ')'], ['open', 'Berjalan (' + APPS.filter((a) => a.open).length + ')'], ['closed', 'Selesai (' + APPS.filter((a) => !a.open).length + ')']];
+    return {
+      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #e8e6e0;display:flex;flex-direction:column;overflow-y:auto',
+      labelSty: s.collapsed ? 'display:none' : 'white-space:nowrap', collapseIconSty: 'flex:0 0 auto;' + (s.collapsed ? 'transform:rotate(180deg)' : ''),
+      onCollapse: () => this.setState({ collapsed: !s.collapsed }),
+      idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
+      onId: () => this.setState({ lang: 'id' }), onEn: () => this.setState({ lang: 'en' }),
+      rows, empty: rows.length === 0,
+      filters: fdefs.map((d) => ({
+        label: d[1], sel: s.filter === d[0], on: () => this.setState({ filter: d[0] }),
+        sty: 'height:36px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (s.filter === d[0] ? '#1b1b1a' : '#d9d6cd') + ';background:' + (s.filter === d[0] ? '#1b1b1a' : '#fff') + ';color:' + (s.filter === d[0] ? '#fff' : '#1b1b1a')
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "v": 3,
+  "attachments": {},
+  "createdOnFiles": { "v": 1, "at": "2026-11-16T08:20:00Z" },
+  "title": "Radixa Portal",
+  "launch": { "view": "focused", "file": "index.html" },
+  "pages": [],
+  "boards": {
+    "index.html":       { "x": 0,    "y": 0,    "w": 1440, "h": 900, "title": "Beranda publik",  "expand": "fill", "is_interactive": true },
+    "Dashboard.html":  { "x": 1520, "y": 0,    "w": 1440, "h": 900, "title": "Dashboard",       "expand": "fill", "is_interactive": true },
+    "MyProfile.html":  { "x": 3040, "y": 0,    "w": 1440, "h": 900, "title": "My Profile",      "expand": "fill", "is_interactive": true },
+    "CVSaya.html":     { "x": 4560, "y": 0,    "w": 1440, "h": 900, "title": "CV saya",         "expand": "fill", "is_interactive": true },
+    "IsiCV.html":      { "x": 6080, "y": 0,    "w": 1440, "h": 900, "title": "Isi CV",          "expand": "fill", "is_interactive": true },
+    "Saran.html":      { "x": 0,    "y": 1020, "w": 1440, "h": 900, "title": "Saran",           "expand": "fill", "is_interactive": true },
+    "Lamaran.html":    { "x": 1520, "y": 1020, "w": 1440, "h": 900, "title": "My Applications", "expand": "fill", "is_interactive": true },
+    "Assessment.html": { "x": 3040, "y": 1020, "w": 1440, "h": 900, "title": "Assessment",      "expand": "fill", "is_interactive": true },
+    "Jadwal.html":     { "x": 4560, "y": 1020, "w": 1440, "h": 900, "title": "Schedule",        "expand": "fill", "is_interactive": true },
+    "CareerPage.html": { "x": 6080, "y": 1020, "w": 1440, "h": 900, "title": "Career Page",     "expand": "fill", "is_interactive": true },
+    "Login.html":      { "x": 0,    "y": 2040, "w": 1440, "h": 900, "title": "Login",           "expand": "fill", "is_interactive": true },
+    "Lowongan.html":   { "x": 1520, "y": 2040, "w": 1440, "h": 900, "title": "Cari lowongan",   "expand": "fill", "is_interactive": true },
+    "EventJobs.html":  { "x": 3040, "y": 2040, "w": 1440, "h": 900, "title": "Event jobs",      "expand": "fill", "is_interactive": true },
+    "RadixaAI.html":   { "x": 4560, "y": 2040, "w": 1440, "h": 900, "title": "Radixa AI",       "expand": "fill", "is_interactive": true },
+    "Layanan.html":    { "x": 6080, "y": 2040, "w": 1440, "h": 900, "title": "Layanan",         "expand": "fill", "is_interactive": true }
+  },
+  "order": [
+    "index.html",
+    "Dashboard.html",
+    "MyProfile.html",
+    "CVSaya.html",
+    "IsiCV.html",
+    "Saran.html",
+    "Lamaran.html",
+    "Assessment.html",
+    "Jadwal.html",
+    "CareerPage.html",
+    "Login.html",
+    "Lowongan.html",
+    "EventJobs.html",
+    "RadixaAI.html",
+    "Layanan.html"
+  ],
+  "notes": {
+    "judul": { "x": 0, "y": -240, "text": "Radixa: dari login sampai Isi CV", "kind": "title1", "maxW": 7520, "w": 240 }
+  },
+  "designSystems": []
+}

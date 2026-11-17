@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Event Jobs Radixa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  <header style="border-bottom:1px solid #e8e6e0;background:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#1b1b1a;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+      <nav aria-label="Menu utama" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><a href="{{n.href}}" aria-current="{{n.cur}}" style="{{n.sty}}">{{n.label}}</a></sc-for>
+      </nav>
+      <div style="display:flex;gap:10px"><a href="Login.html" class="btn2">Masuk</a><a href="Login.html" class="btn">Daftar gratis</a></div>
+    </div>
+  </header>
+
+  <main style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:32px 24px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <h1 style="margin:0;font-size:30px;font-weight:700">Event jobs</h1>
+      <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5;max-width:640px">Job fair, webinar, dan walk-in interview dari perusahaan mitra. Daftar sekali, pengingat masuk ke Schedule di akunmu.</p>
+    </div>
+    <div role="group" aria-label="Jenis event" style="display:flex;gap:8px;flex-wrap:wrap">
+      <sc-for list="{{kinds}}" as="k" hint-placeholder-count="4"><button type="button" onClick="{{k.on}}" aria-pressed="{{k.sel}}" style="{{k.sty}}">{{k.label}}</button></sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
+      <sc-for list="{{list}}" as="e" hint-placeholder-count="4">
+        <article class="card" style="padding:20px;display:flex;gap:18px;flex-wrap:wrap">
+          <div style="flex:0 0 60px;display:flex;flex-direction:column;align-items:center;line-height:1.2;padding:8px 0;border-radius:10px;background:#fdf1cf;align-self:flex-start"><span style="font-size:12px;font-weight:700;color:#8a5a00">{{e.mon}}</span><span style="font-size:28px;font-weight:700">{{e.date}}</span></div>
+          <div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:6px">
+            <span style="align-self:flex-start;padding:2px 10px;border-radius:999px;background:#efede6;font-size:11px;font-weight:700">{{e.kind}}</span>
+            <h2 style="margin:0;font-size:17px;font-weight:700">{{e.title}}</h2>
+            <span style="font-size:13px;color:#4a4944">{{e.time}} · {{e.place}}</span>
+            <span style="font-size:13px;line-height:1.5;color:#3b3a36">{{e.text}}</span>
+            <span style="font-size:12px;color:#5f5d57">{{e.seats}}</span>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px">
+              <button type="button" onClick="{{e.onReg}}" aria-pressed="{{e.reg}}" style="{{e.btnSty}}">{{e.btnLabel}}</button>
+              <sc-if value="{{e.reg}}" hint-placeholder-val="{{false}}"><span style="font-size:12px;color:#25603d;font-weight:600">Pengingat akan masuk ke Schedule</span></sc-if>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin:0;font-size:14px;color:#5f5d57">Belum ada event untuk jenis ini.</p></sc-if>
+    <p style="margin:0;font-size:12px;color:#6b6962">Semua event di halaman ini adalah contoh untuk prototipe.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const ACTIVE = 'events';
+const NAV = [
+  { id: 'home', label: 'Beranda', href: 'index.html' },
+  { id: 'jobs', label: 'Cari lowongan', href: 'Lowongan.html' },
+  { id: 'events', label: 'Event jobs', href: 'EventJobs.html' },
+  { id: 'ai', label: 'Radixa AI', href: 'RadixaAI.html' },
+  { id: 'svc', label: 'Layanan', href: 'Layanan.html' }
+];
+const EVENTS = [
+  { id: 'v1', mon: 'NOV', date: '25', kind: 'Job fair', title: 'Job Fair Data dan Teknologi', time: '09.00 – 16.00 WIB', place: 'Jakarta Convention Center', text: '24 perusahaan membuka posisi analis data, engineer, dan produk. Bawa CV cetak dan siapkan perkenalan singkat.', seats: 'Gratis · kuota 800 peserta' },
+  { id: 'v2', mon: 'NOV', date: '28', kind: 'Webinar', title: 'Portofolio untuk Data Analyst pemula', time: '09.00 – 10.30 WIB', place: 'Daring (Zoom)', text: 'Cara memilih proyek, menulis ringkasan hasil, dan menampilkannya di CV dan LinkedIn.', seats: 'Gratis · kuota 300 peserta' },
+  { id: 'v3', mon: 'DES', date: '03', kind: 'Walk-in interview', title: 'Walk-in Interview Tangerang', time: '10.00 – 15.00 WIB', place: 'Tangerang', text: 'Wawancara langsung untuk posisi administrasi, customer service, dan gudang. Datang dengan CV dan KTP.', seats: 'Gratis · tanpa kuota' },
+  { id: 'v4', mon: 'DES', date: '09', kind: 'Webinar', title: 'Latihan wawancara: jawaban yang terstruktur', time: '19.30 – 21.00 WIB', place: 'Daring (Google Meet)', text: 'Latihan menjawab dengan pola situasi, tindakan, dan hasil, lengkap dengan umpan balik langsung.', seats: 'Gratis · kuota 150 peserta' },
+  { id: 'v5', mon: 'DES', date: '12', kind: 'Job fair', title: 'Job Fair Fresh Graduate Depok', time: '09.00 – 15.00 WIB', place: 'Depok', text: 'Khusus lulusan 2025 dan 2026 dari berbagai jurusan, dengan sesi konsultasi CV.', seats: 'Gratis · kuota 500 peserta' }
+];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { kind: '', reg: { v2: true } };
+  }
+  renderVals() {
+    const s = this.state;
+    const kinds = [''].concat(['Job fair', 'Webinar', 'Walk-in interview']);
+    const list = EVENTS.filter((e) => !s.kind || e.kind === s.kind).map((e) => {
+      const on = !!s.reg[e.id];
+      return Object.assign({}, e, { reg: on, btnLabel: on ? 'Terdaftar' : 'Daftar',
+        btnSty: 'height:40px;padding:0 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid ' + (on ? '#25603d' : '#1b1b1a') + ';background:' + (on ? '#e4f1e9' : '#1b1b1a') + ';color:' + (on ? '#25603d' : '#fff'),
+        onReg: () => this.setState({ reg: Object.assign({}, s.reg, { [e.id]: !on }) }) });
+    });
+    return {
+      nav: NAV.map((n) => ({ label: n.label, href: n.href, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'padding:8px 14px;border-radius:999px;font-size:14px;text-decoration:none;color:#1b1b1a;font-weight:' + (n.id === ACTIVE ? 700 : 500) + ';background:' + (n.id === ACTIVE ? '#fdf1cf' : 'transparent') })),
+      kinds: kinds.map((k) => ({ label: k || 'Semua', sel: s.kind === k, on: () => this.setState({ kind: k }),
+        sty: 'height:36px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (s.kind === k ? '#1b1b1a' : '#d9d6cd') + ';background:' + (s.kind === k ? '#1b1b1a' : '#fff') + ';color:' + (s.kind === k ? '#fff' : '#1b1b1a') })),
+      list, empty: list.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>

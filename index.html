@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Radixa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.fld{width:100%;box-sizing:border-box;height:48px;padding:0 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;text-decoration:none}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none}
+.btny{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:10px;background:#f2b705;color:#1b1b1a;font-size:15px;font-weight:700;text-decoration:none}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+
+  <header style="border-bottom:1px solid #e8e6e0;background:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#1b1b1a;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+      <nav aria-label="Menu utama" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><a href="{{n.href}}" aria-current="{{n.cur}}" style="{{n.sty}}">{{n.label}}</a></sc-for>
+      </nav>
+      <div style="display:flex;gap:10px"><a href="Login.html" class="btn2">Masuk</a><a href="Login.html" class="btn">Daftar gratis</a></div>
+    </div>
+  </header>
+
+  <section style="background:#1b1b1a;color:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:64px 24px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:760px">
+        <h1 style="margin:0;font-size:48px;line-height:1.1;font-weight:700;text-wrap:balance">Cari kerja, siapkan CV, dan lamar dari satu tempat.</h1>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:#d2cfc6">Radixa mencocokkan lowongan dengan profilmu, membantu menyusun CV untuk tiap posisi, dan melacak lamaran sampai wawancara.</p>
+      </div>
+      <div style="background:#fff;color:#1b1b1a;border-radius:14px;padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;max-width:900px">
+        <div style="flex:2 1 240px;min-width:0;display:flex;flex-direction:column;gap:6px"><label for="hq" style="font-size:13px;font-weight:600">Posisi atau perusahaan</label><input id="hq" class="fld" type="text" value="{{q}}" onInput="{{onQ}}" placeholder="Contoh: Data Analyst"></div>
+        <div style="flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:6px"><label for="hc" style="font-size:13px;font-weight:600">Kota</label><input id="hc" class="fld" type="text" value="{{city}}" onInput="{{onCity}}" placeholder="Contoh: Jakarta"></div>
+        <a href="Lowongan.html" class="btny">Cari lowongan</a>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#d2cfc6">
+        <span>Sering dicari:</span>
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="4"><a href="Lowongan.html" style="padding:5px 12px;border-radius:999px;border:1px solid #5a5850;color:#fff;text-decoration:none;font-size:13px">{{c.t}}</a></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <main style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:48px 24px;display:flex;flex-direction:column;gap:56px">
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-size:24px;font-weight:700">Lowongan terbaru</h2><a href="Lowongan.html" style="font-size:14px;font-weight:600">Lihat semua lowongan</a></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+        <sc-for list="{{jobs}}" as="j" hint-placeholder-count="3">
+          <a href="Lowongan.html" class="card" style="padding:20px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#1b1b1a">
+            <span style="font-size:17px;font-weight:700">{{j.role}}</span>
+            <span style="font-size:13px;color:#4a4944">{{j.company}} · {{j.city}} · {{j.type}}</span>
+            <span style="font-size:13px;line-height:1.5;color:#3b3a36">{{j.text}}</span>
+            <span style="font-size:13px;font-weight:600;color:#8a5a00;margin-top:4px">Lihat dan lamar</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font-size:24px;font-weight:700">Cara kerja Radixa</h2>
+      <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="3">
+          <li class="card" style="padding:20px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:12px;font-weight:700;color:#8a5a00">Langkah {{s.n}}</span>
+            <span style="font-size:16px;font-weight:700">{{s.title}}</span>
+            <span style="font-size:14px;line-height:1.5;color:#3b3a36">{{s.text}}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+
+    <section style="display:flex;gap:24px;flex-wrap:wrap;align-items:stretch">
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:12px;justify-content:center">
+        <span style="font-size:12px;font-weight:700;color:#8a5a00">Radixa AI</span>
+        <h2 style="margin:0;font-size:28px;line-height:1.2;font-weight:700;text-wrap:balance">Tanya soal CV, wawancara, dan karier kapan saja.</h2>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#3b3a36">Minta masukan untuk poin pengalamanmu, latihan jawaban wawancara, atau bantuan memilih lowongan yang cocok.</p>
+        <div><a href="RadixaAI.html" class="btn">Coba Radixa AI</a></div>
+      </div>
+      <div class="card" style="flex:1 1 380px;min-width:0;padding:20px;display:flex;flex-direction:column;gap:10px;background:#fbf9f4">
+        <div style="align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:14px 14px 4px 14px;background:#1b1b1a;color:#fff;font-size:14px;line-height:1.5">Bagaimana cara menulis poin pengalaman magang supaya lebih kuat?</div>
+        <div style="align-self:flex-start;max-width:85%;padding:10px 14px;border-radius:14px 14px 14px 4px;background:#fff;border:1px solid #e6e3da;font-size:14px;line-height:1.5">Mulai dengan kata kerja, sebut apa yang kamu kerjakan, lalu tutup dengan hasil yang bisa diukur, misalnya jumlah cabang atau waktu yang dihemat.</div>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-size:24px;font-weight:700">Event jobs</h2><a href="EventJobs.html" style="font-size:14px;font-weight:600">Lihat semua event</a></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+        <sc-for list="{{events}}" as="e" hint-placeholder-count="3">
+          <a href="EventJobs.html" class="card" style="display:flex;gap:16px;padding:18px;text-decoration:none;color:#1b1b1a">
+            <span style="flex:0 0 52px;display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:12px;color:#5f5d57">{{e.mon}}</span><span style="font-size:26px;font-weight:700">{{e.date}}</span></span>
+            <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:15px;font-weight:700">{{e.title}}</span><span style="font-size:13px;color:#4a4944">{{e.kind}} · {{e.place}}</span></span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-size:24px;font-weight:700">Layanan Radixa</h2><a href="Layanan.html" style="font-size:14px;font-weight:600">Semua layanan</a></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+        <sc-for list="{{services}}" as="v" hint-placeholder-count="4">
+          <a href="{{v.href}}" class="card" style="padding:18px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#1b1b1a">
+            <span style="font-size:16px;font-weight:700">{{v.title}}</span>
+            <span style="font-size:13px;line-height:1.5;color:#3b3a36">{{v.text}}</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#fdf1cf;border-radius:16px;padding:32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:6px;max-width:620px"><h2 style="margin:0;font-size:24px;font-weight:700">Buat akun dan isi My Profile sekali saja.</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#3b3a36">Setelah itu, tiap lamaran cukup memilih bagian yang ingin ditampilkan di CV.</p></div>
+      <a href="Login.html" class="btn">Daftar gratis</a>
+    </section>
+  </main>
+
+  <footer style="border-top:1px solid #e8e6e0">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#5f5d57">
+      <span>Radixa · Portal karier</span>
+      <span style="display:flex;gap:16px;flex-wrap:wrap"><a href="Lowongan.html">Cari lowongan</a><a href="EventJobs.html">Event jobs</a><a href="RadixaAI.html">Radixa AI</a><a href="Layanan.html">Layanan</a><a href="Login.html">Masuk</a></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const ACTIVE = 'home';
+const NAV = [
+  { id: 'home', label: 'Beranda', href: 'index.html' },
+  { id: 'jobs', label: 'Cari lowongan', href: 'Lowongan.html' },
+  { id: 'events', label: 'Event jobs', href: 'EventJobs.html' },
+  { id: 'ai', label: 'Radixa AI', href: 'RadixaAI.html' },
+  { id: 'svc', label: 'Layanan', href: 'Layanan.html' }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', city: '' };
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      nav: NAV.map((n) => ({ label: n.label, href: n.href, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'padding:8px 14px;border-radius:999px;font-size:14px;text-decoration:none;color:#1b1b1a;font-weight:' + (n.id === ACTIVE ? 700 : 500) + ';background:' + (n.id === ACTIVE ? '#fdf1cf' : 'transparent') })),
+      q: s.q, city: s.city, onQ: (e) => this.setState({ q: e.target.value }), onCity: (e) => this.setState({ city: e.target.value }),
+      chips: ['Data Analyst', 'Admin', 'Customer Service', 'Magang'].map((t) => ({ t })),
+      jobs: [
+        { role: 'Data Analyst', company: 'Sinar Logistik', city: 'Jakarta', type: 'Penuh waktu', text: 'Menganalisis data pengiriman dan membangun dashboard performa gudang.' },
+        { role: 'Business Intelligence Analyst', company: 'Tokoloka', city: 'Tangerang', type: 'Penuh waktu', text: 'Menyusun laporan penjualan dan metrik pelanggan untuk tim komersial.' },
+        { role: 'Staf Administrasi', company: 'Warung Digital', city: 'Depok', type: 'Penuh waktu', text: 'Mengelola dokumen, jadwal, dan pesanan harian tim operasional.' }
+      ],
+      steps: [
+        { n: 1, title: 'Isi My Profile', text: 'Catat pekerjaan, pendidikan, proyek, dan keahlian satu kali saja.' },
+        { n: 2, title: 'Susun CV per lowongan', text: 'Pilih bagian yang tampil, tulis poin khusus, dan atur template tanpa mengubah datamu.' },
+        { n: 3, title: 'Lamar dan pantau', text: 'Kirim lamaran, kerjakan assessment, dan lihat jadwal wawancara di satu dashboard.' }
+      ],
+      events: [
+        { mon: 'NOV', date: '25', title: 'Job Fair Data dan Teknologi', kind: 'Job fair', place: 'Jakarta Convention Center' },
+        { mon: 'NOV', date: '28', title: 'Webinar: Portofolio untuk Data Analyst pemula', kind: 'Webinar', place: 'Daring' },
+        { mon: 'DES', date: '03', title: 'Walk-in Interview Tangerang', kind: 'Walk-in interview', place: 'Tangerang' }
+      ],
+      services: [
+        { title: 'Radixa Portal', text: 'My Profile, CV, lamaran, assessment, dan jadwal dalam satu akun.', href: 'Login.html' },
+        { title: 'Cari lowongan', text: 'Telusuri lowongan terbuka dan lamar langsung.', href: 'Lowongan.html' },
+        { title: 'Radixa AI', text: 'Asisten untuk CV, wawancara, dan arah karier.', href: 'RadixaAI.html' },
+        { title: 'Event jobs', text: 'Job fair, webinar, dan walk-in interview terdekat.', href: 'EventJobs.html' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Radixa AI</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  <header style="border-bottom:1px solid #e8e6e0;background:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#1b1b1a;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+      <nav aria-label="Menu utama" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><a href="{{n.href}}" aria-current="{{n.cur}}" style="{{n.sty}}">{{n.label}}</a></sc-for>
+      </nav>
+      <div style="display:flex;gap:10px"><a href="Login.html" class="btn2">Masuk</a><a href="Login.html" class="btn">Daftar gratis</a></div>
+    </div>
+  </header>
+
+  <main style="max-width:860px;margin:0 auto;box-sizing:border-box;padding:32px 24px 56px;display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <h1 style="margin:0;font-size:30px;font-weight:700">Radixa AI</h1>
+      <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Asisten untuk CV, wawancara, dan arah karier.</p>
+    </div>
+    <div role="note" style="padding:10px 14px;border-radius:10px;background:#fdf4dc;border:1px solid #f1e0a6;font-size:13px;line-height:1.5">Ini prototipe. Jawaban di bawah adalah contoh bawaan dan belum memakai model AI sungguhan.</div>
+
+    <section aria-label="Percakapan" aria-live="polite" class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px;background:#fbf9f4;min-height:280px">
+      <sc-for list="{{msgs}}" as="m" hint-placeholder-count="3">
+        <div style="{{m.sty}}">{{m.t}}</div>
+      </sc-for>
+    </section>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <sc-for list="{{ideas}}" as="i" hint-placeholder-count="4"><button type="button" onClick="{{i.on}}" style="height:36px;padding:0 14px;border-radius:999px;border:1px solid #d9d6cd;background:#fff;font-size:13px;font-weight:600;color:#1b1b1a;cursor:pointer">{{i.t}}</button></sc-for>
+    </div>
+
+    <form onSubmit="{{onSend}}" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+      <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:6px">
+        <label for="ask" style="font-size:13px;font-weight:600">Pertanyaanmu</label>
+        <textarea id="ask" rows="2" value="{{input}}" onInput="{{onInput}}" placeholder="Contoh: Bagaimana cara menulis ringkasan CV?" style="width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;resize:vertical;color:#1b1b1a;background:#fff"></textarea>
+      </div>
+      <button type="submit" class="btn" style="height:44px">Kirim</button>
+    </form>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const ACTIVE = 'ai';
+const NAV = [
+  { id: 'home', label: 'Beranda', href: 'index.html' },
+  { id: 'jobs', label: 'Cari lowongan', href: 'Lowongan.html' },
+  { id: 'events', label: 'Event jobs', href: 'EventJobs.html' },
+  { id: 'ai', label: 'Radixa AI', href: 'RadixaAI.html' },
+  { id: 'svc', label: 'Layanan', href: 'Layanan.html' }
+];
+const IDEAS = ['Bagaimana menulis ringkasan CV?', 'Latihan jawaban wawancara', 'Poin pengalaman magang yang kuat', 'Cara memilih lowongan yang cocok'];
+function reply(q) {
+  const t = q.toLowerCase();
+  if (/wawancara|interview/.test(t)) return 'Pakai pola situasi, tindakan, hasil. Ceritakan satu situasi nyata, apa yang kamu lakukan, lalu hasil yang terukur. Siapkan 3 cerita: kerja sama tim, masalah yang kamu selesaikan, dan hal yang kamu pelajari dari kegagalan.';
+  if (/ringkasan|summary/.test(t)) return 'Tulis 2 sampai 3 kalimat: siapa kamu secara profesional, alat atau keahlian utamamu, dan posisi yang kamu tuju. Hindari kata umum seperti "pekerja keras". Sebut hal yang bisa dibuktikan di bagian pengalaman.';
+  if (/poin|magang|pengalaman|angka/.test(t)) return 'Mulai dengan kata kerja, sebut apa yang kamu kerjakan, lalu tutup dengan hasil yang terukur, misalnya jumlah cabang, waktu yang dihemat, atau jumlah laporan. Jika belum punya angka, perkirakan dengan jujur dan jelaskan cakupannya.';
+  if (/cv|resume/.test(t)) return 'Satu halaman cukup untuk pengalaman di bawah 5 tahun. Urutkan dari yang terbaru, sesuaikan poin dengan lowongan, dan pakai template satu kolom supaya mudah dibaca sistem penyaring CV. Di Radixa, atur ini lewat Isi CV.';
+  if (/lowongan|kerja|cari|cocok/.test(t)) return 'Mulai dari posisi dan alat yang paling kamu kuasai, lalu cek kualifikasi di tiap lowongan. Lamar yang cocok sekitar 70 persen atau lebih. Kamu bisa menelusurinya di halaman Cari lowongan.';
+  return 'Pertanyaan yang menarik. Di prototipe ini aku baru punya contoh jawaban untuk CV, ringkasan, poin pengalaman, wawancara, dan memilih lowongan. Coba salah satu topik itu.';
+}
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { input: '', msgs: [
+      { who: 'ai', t: 'Halo, aku Radixa AI. Tanyakan soal CV, wawancara, atau lowongan, atau pilih salah satu ide di bawah.' }
+    ] };
+  }
+  send(text) {
+    const v = (text || '').trim();
+    if (!v) return;
+    this.setState({ msgs: this.state.msgs.concat([{ who: 'me', t: v }, { who: 'ai', t: reply(v) }]), input: '' });
+  }
+  renderVals() {
+    const s = this.state;
+    const me = 'align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:14px 14px 4px 14px;background:#1b1b1a;color:#fff;font-size:14px;line-height:1.6;white-space:pre-line';
+    const ai = 'align-self:flex-start;max-width:85%;padding:10px 14px;border-radius:14px 14px 14px 4px;background:#fff;border:1px solid #e6e3da;font-size:14px;line-height:1.6;white-space:pre-line';
+    return {
+      nav: NAV.map((n) => ({ label: n.label, href: n.href, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'padding:8px 14px;border-radius:999px;font-size:14px;text-decoration:none;color:#1b1b1a;font-weight:' + (n.id === ACTIVE ? 700 : 500) + ';background:' + (n.id === ACTIVE ? '#fdf1cf' : 'transparent') })),
+      msgs: s.msgs.slice(-6).map((m) => ({ t: m.t, sty: m.who === 'me' ? me : ai })),
+      ideas: IDEAS.map((t) => ({ t, on: () => this.send(t) })),
+      input: s.input, onInput: (e) => this.setState({ input: e.target.value }),
+      onSend: (e) => { if (e && e.preventDefault) e.preventDefault(); this.send(this.state.input); }
+    };
+  }
+}
+</script>
+</body>
+</html>

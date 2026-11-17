@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Masuk Radixa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+.fld{width:100%;box-sizing:border-box;height:46px;padding:0 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
+.fld:focus{outline:2px solid #f2b705;outline-offset:1px}
+button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;min-height:100vh;font-family:'Noto Sans',system-ui,sans-serif;background:#fff;color:#1b1b1a">
+  <section style="flex:1 1 480px;min-width:0;box-sizing:border-box;background:#1b1b1a;color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#fff;text-decoration:none">
+      <span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa
+    </a>
+    <div style="display:flex;flex-direction:column;gap:24px;max-width:520px">
+      <h1 style="margin:0;font-size:44px;line-height:1.1;font-weight:700;text-wrap:balance">Satu profil, banyak CV.</h1>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#d2cfc6">Isi My Profile sekali. Setiap CV mengambil datanya dari sana, jadi riwayat kerja dan pendidikan tidak perlu diketik ulang untuk tiap lowongan.</p>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.5;color:#d2cfc6">
+        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">My Profile</span><span>menyimpan fakta: pekerjaan, pendidikan, proyek, keahlian.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">My CV</span><span>memilih dan menata fakta itu untuk satu lowongan.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">Terkunci</span><span>CV yang sudah dikirim tidak berubah lagi.</span></li>
+      </ul>
+    </div>
+    <a href="index.html" style="font-size:14px;font-weight:600;color:#d2cfc6">Kembali ke beranda</a>
+  </section>
+  <section style="flex:1 1 420px;min-width:0;box-sizing:border-box;padding:48px 24px;display:flex;align-items:center;justify-content:center">
+    <div style="width:100%;max-width:400px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h2 style="margin:0;font-size:28px;font-weight:700">Masuk</h2>
+        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Gunakan email yang kamu daftarkan di Radixa.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label for="email" style="font-size:13px;font-weight:600">Email</label>
+        <input id="email" class="fld" type="email" value="{{email}}" onInput="{{onEmail}}" autocomplete="email">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label for="pw" style="font-size:13px;font-weight:600">Kata sandi</label>
+          <button type="button" onClick="{{onToggle}}" style="border:0;background:none;padding:6px 0;font:inherit;font-size:13px;font-weight:600;color:#8a5a00;cursor:pointer">{{showLabel}}</button>
+        </div>
+        <input id="pw" class="fld" type="{{pwType}}" value="{{pw}}" onInput="{{onPw}}" autocomplete="current-password">
+      </div>
+      <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:#3b3a36;cursor:pointer">
+        <input type="checkbox" checked="{{remember}}" onChange="{{onRemember}}" style="width:18px;height:18px;accent-color:#1b1b1a">
+        Ingat saya di perangkat ini
+      </label>
+      <a href="Dashboard.html" style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:15px;font-weight:600;text-decoration:none">Masuk</a>
+      <p style="margin:0;font-size:14px;color:#3b3a36">Belum punya akun? <a href="Dashboard.html" style="font-weight:600">Daftar gratis</a></p>
+      <p style="margin:0;font-size:13px;line-height:1.5;color:#6b6962">Ini prototipe alur. Datanya contoh dan tidak dikirim ke server.</p>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { email: 'budi.santoso@gmail.com', pw: 'katasandi123', show: false, remember: true };
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      email: s.email, pw: s.pw, pwType: s.show ? 'text' : 'password', showLabel: s.show ? 'Sembunyikan' : 'Tampilkan', remember: s.remember,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      onPw: (e) => this.setState({ pw: e.target.value }),
+      onToggle: () => this.setState({ show: !this.state.show }),
+      onRemember: () => this.setState({ remember: !this.state.remember })
+    };
+  }
+}
+</script>
+</body>
+</html>

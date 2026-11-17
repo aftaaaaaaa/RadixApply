@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Cari Lowongan Radixa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
+a{color:#8a5a00}a:hover{color:#5c3c00}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.fld{width:100%;box-sizing:border-box;height:44px;padding:0 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
+.lbl{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 20px;border-radius:10px;border:0;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:10px;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  <header style="border-bottom:1px solid #e8e6e0;background:#fff">
+    <div style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#1b1b1a;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+      <nav aria-label="Menu utama" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><a href="{{n.href}}" aria-current="{{n.cur}}" style="{{n.sty}}">{{n.label}}</a></sc-for>
+      </nav>
+      <div style="display:flex;gap:10px"><a href="Login.html" class="btn2">Masuk</a><a href="Login.html" class="btn">Daftar gratis</a></div>
+    </div>
+  </header>
+
+  <main style="max-width:1160px;margin:0 auto;box-sizing:border-box;padding:32px 24px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <h1 style="margin:0;font-size:30px;font-weight:700">Cari lowongan</h1>
+      <p style="margin:0;font-size:15px;color:#5f5d57">{{countLabel}}</p>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+      <div class="lbl" style="flex:2 1 260px;min-width:0"><label for="q">Posisi atau perusahaan</label><input id="q" class="fld" type="text" value="{{q}}" onInput="{{onQ}}" placeholder="Contoh: Data Analyst"></div>
+      <div style="display:flex;flex-direction:column;gap:6px;flex:2 1 280px;min-width:0"><span style="font-size:13px;font-weight:600">Kota</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{cities}}" as="c" hint-placeholder-count="4"><button type="button" onClick="{{c.on}}" aria-pressed="{{c.sel}}" style="{{c.sty}}">{{c.label}}</button></sc-for></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;flex:2 1 280px;min-width:0"><span style="font-size:13px;font-weight:600">Jenis kerja</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{types}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.on}}" aria-pressed="{{t.sel}}" style="{{t.sty}}">{{t.label}}</button></sc-for></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+      <section aria-label="Daftar lowongan" style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{list}}" as="j" hint-placeholder-count="5">
+          <button type="button" onClick="{{j.on}}" aria-pressed="{{j.sel}}" style="{{j.sty}}">
+            <span style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><span style="font-size:16px;font-weight:700">{{j.role}}</span><span style="flex:0 0 auto;font-size:12px;font-weight:700;color:#8a5a00">{{j.posted}}</span></span>
+            <span style="font-size:13px;color:#4a4944">{{j.company}} · {{j.city}}</span>
+            <span style="font-size:12px;color:#5f5d57">{{j.type}} · {{j.salary}}</span>
+          </button>
+        </sc-for>
+        <sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin:0;font-size:14px;color:#5f5d57;line-height:1.5">Tidak ada lowongan yang cocok. Coba ubah kata kunci atau filter.</p></sc-if>
+      </section>
+
+      <section aria-label="Detail lowongan" style="flex:2 1 460px;min-width:0">
+        <sc-if value="{{hasSel}}" hint-placeholder-val="{{true}}">
+          <article class="card" style="padding:28px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <h2 style="margin:0;font-size:24px;font-weight:700">{{sel.role}}</h2>
+              <span style="font-size:14px;color:#4a4944">{{sel.company}} · {{sel.city}} · {{sel.type}}</span>
+              <span style="font-size:14px;font-weight:600">{{sel.salary}}</span>
+            </div>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3b3a36">{{sel.text}}</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">Tanggung jawab</span><ul style="margin:0;padding-left:1.1em;font-size:14px;line-height:1.6;color:#3b3a36"><sc-for list="{{sel.duties}}" as="d" hint-placeholder-count="3"><li>{{d.t}}</li></sc-for></ul></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">Kualifikasi</span><ul style="margin:0;padding-left:1.1em;font-size:14px;line-height:1.6;color:#3b3a36"><sc-for list="{{sel.reqs}}" as="r" hint-placeholder-count="3"><li>{{r.t}}</li></sc-for></ul></div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{sel.skills}}" as="k" hint-placeholder-count="3"><span style="padding:3px 10px;border-radius:999px;background:#efede6;font-size:12px;font-weight:500">{{k.t}}</span></sc-for></div>
+
+            <sc-if value="{{showApplyBtn}}" hint-placeholder-val="{{true}}">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button type="button" class="btn" onClick="{{onOpenApply}}">Lamar sekarang</button><span style="font-size:13px;color:#5f5d57">Punya akun? <a href="Login.html" style="font-weight:600">Masuk</a> supaya CV dari My Profile terisi otomatis.</span></div>
+            </sc-if>
+
+            <sc-if value="{{showForm}}" hint-placeholder-val="{{false}}">
+              <form onSubmit="{{onSubmit}}" style="display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid #e6e3da;border-radius:12px;background:#fbf9f4">
+                <h3 style="margin:0;font-size:17px;font-weight:700">Lamar sebagai {{sel.role}}</h3>
+                <div class="lbl"><label for="fn">Nama lengkap</label><input id="fn" class="fld" type="text" value="{{f.name}}" onInput="{{onName}}"></div>
+                <div class="lbl"><label for="fe">Email</label><input id="fe" class="fld" type="email" value="{{f.email}}" onInput="{{onEmail}}"></div>
+                <div class="lbl"><label for="fp">Telepon</label><input id="fp" class="fld" type="tel" value="{{f.phone}}" onInput="{{onPhone}}"></div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:13px;font-weight:600">CV</span>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" onClick="{{onCvRadixa}}" aria-pressed="{{cvIsRadixa}}" style="{{cvRadixaSty}}">Pakai CV Radixa</button><button type="button" onClick="{{onCvFile}}" aria-pressed="{{cvIsFile}}" style="{{cvFileSty}}">Unggah file CV</button></div>
+                  <sc-if value="{{cvIsRadixa}}" hint-placeholder-val="{{true}}"><span style="font-size:13px;line-height:1.5;color:#4a4944">Memakai Resume utama dari akun Radixa-mu. Belum punya? <a href="Login.html">Masuk atau daftar</a>.</span></sc-if>
+                  <sc-if value="{{cvIsFile}}" hint-placeholder-val="{{false}}"><label for="ff" style="font-size:13px;color:#4a4944">Pilih file PDF atau Word (maks. 5 MB)</label><input id="ff" type="file" accept=".pdf,.doc,.docx" style="font:inherit;font-size:13px"></sc-if>
+                </div>
+                <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin:0;font-size:13px;color:#8c1d18">{{err}}</p></sc-if>
+                <div style="display:flex;gap:10px;flex-wrap:wrap"><button type="submit" class="btn">Kirim lamaran</button><button type="button" class="btn2" onClick="{{onCancelApply}}">Batal</button></div>
+              </form>
+            </sc-if>
+
+            <sc-if value="{{isSent}}" hint-placeholder-val="{{false}}">
+              <div role="status" style="padding:16px 18px;border-radius:12px;background:#e4f1e9;color:#1d4a30;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:15px;font-weight:700">Lamaran terkirim</span>
+                <span style="font-size:14px;line-height:1.5">Perusahaan akan menghubungi {{f.email}} jika profilmu sesuai. Masuk ke Radixa untuk memantau status lamaran dan jadwal wawancara.</span>
+                <span><a href="Login.html" style="font-weight:600">Masuk ke Radixa</a></span>
+              </div>
+            </sc-if>
+          </article>
+        </sc-if>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+const ACTIVE = 'jobs';
+const NAV = [
+  { id: 'home', label: 'Beranda', href: 'index.html' },
+  { id: 'jobs', label: 'Cari lowongan', href: 'Lowongan.html' },
+  { id: 'events', label: 'Event jobs', href: 'EventJobs.html' },
+  { id: 'ai', label: 'Radixa AI', href: 'RadixaAI.html' },
+  { id: 'svc', label: 'Layanan', href: 'Layanan.html' }
+];
+const JOBS = [
+  { id: 'j1', role: 'Data Analyst', company: 'Sinar Logistik', city: 'Jakarta', type: 'Penuh waktu', salary: 'Rp 7–10 juta / bulan', posted: '2 hari lalu',
+    text: 'Bergabung dengan tim operasional untuk membaca data pengiriman dan mengubahnya menjadi keputusan harian di gudang.',
+    duties: ['Menganalisis data pengiriman dan keterlambatan', 'Membangun dashboard performa gudang', 'Menyiapkan laporan mingguan untuk manajer'],
+    reqs: ['S1 Statistika, Matematika, atau bidang terkait', 'Menguasai SQL dan Excel', 'Terbiasa dengan Python atau R'], skills: ['SQL', 'Python', 'Looker Studio'] },
+  { id: 'j2', role: 'Business Intelligence Analyst', company: 'Tokoloka', city: 'Tangerang', type: 'Penuh waktu', salary: 'Rp 8–11 juta / bulan', posted: '3 hari lalu',
+    text: 'Menyusun laporan penjualan dan metrik pelanggan untuk tim komersial toko daring.',
+    duties: ['Membuat laporan penjualan per kategori', 'Memantau metrik pelanggan', 'Mendampingi tim komersial membaca data'],
+    reqs: ['Pengalaman 1 tahun di analisis data', 'Mahir SQL dan alat dashboard', 'Mampu menjelaskan hasil ke non-teknis'], skills: ['SQL', 'Excel', 'Dashboard'] },
+  { id: 'j3', role: 'Junior Data Analyst', company: 'Nusa Pangan', city: 'Depok', type: 'Penuh waktu', salary: 'Rp 5–7 juta / bulan', posted: '5 hari lalu',
+    text: 'Merapikan data pasokan dan membuat ringkasan mingguan untuk manajer cabang.',
+    duties: ['Membersihkan data pasokan', 'Membuat ringkasan mingguan', 'Membantu audit stok bulanan'],
+    reqs: ['Fresh graduate dipersilakan', 'Menguasai Excel', 'Paham statistika dasar'], skills: ['Excel', 'SQL', 'Statistika'] },
+  { id: 'j4', role: 'Analis Data Riset', company: 'Lembaga Survei Nusantara', city: 'Jakarta', type: 'Kontrak', salary: 'Rp 6–8 juta / bulan', posted: '1 minggu lalu',
+    text: 'Mengolah data survei dan menjalankan uji statistik untuk laporan klien.',
+    duties: ['Membersihkan data survei', 'Menjalankan uji statistik', 'Menulis ringkasan temuan untuk klien'],
+    reqs: ['S1 Statistika atau Sosial', 'Mahir R atau SPSS', 'Teliti dan rapi menulis laporan'], skills: ['R', 'Statistika', 'Excel'] },
+  { id: 'j5', role: 'Staf Administrasi', company: 'Warung Digital', city: 'Depok', type: 'Penuh waktu', salary: 'Rp 4–5,5 juta / bulan', posted: '1 minggu lalu',
+    text: 'Mengelola dokumen, jadwal, dan pesanan harian tim operasional.',
+    duties: ['Mengelola dokumen dan arsip', 'Mengatur jadwal tim', 'Mencatat dan memeriksa pesanan'],
+    reqs: ['Minimal D3 atau SMK', 'Mahir Google Workspace atau Excel', 'Komunikatif dan teliti'], skills: ['Excel', 'Administrasi'] },
+  { id: 'j6', role: 'Data Analyst Magang', company: 'Warung Digital', city: 'Depok', type: 'Magang', salary: 'Rp 2,5 juta / bulan', posted: '2 minggu lalu',
+    text: 'Membantu tim produk membaca data pesanan dan menyiapkan laporan bulanan selama 6 bulan.',
+    duties: ['Merapikan data pesanan', 'Menyiapkan laporan bulanan', 'Membantu analisis sederhana'],
+    reqs: ['Mahasiswa tingkat akhir atau fresh graduate', 'Paham Excel', 'Mau belajar SQL'], skills: ['Excel', 'Python'] },
+  { id: 'j7', role: 'Customer Service', company: 'Sinar Logistik', city: 'Jakarta', type: 'Penuh waktu', salary: 'Rp 4,5–6 juta / bulan', posted: '2 minggu lalu',
+    text: 'Melayani pertanyaan pelanggan tentang status pengiriman lewat chat dan telepon.',
+    duties: ['Menjawab pertanyaan pelanggan', 'Menindaklanjuti keluhan pengiriman', 'Mencatat laporan harian'],
+    reqs: ['Komunikasi baik', 'Terbiasa dengan chat support', 'Siap kerja bergilir'], skills: ['Komunikasi', 'Layanan pelanggan'] }
+];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', city: '', type: '', sel: 'j1', stage: 'view', cv: 'radixa', err: '', sent: {}, f: { name: 'Budi Santoso', email: 'budi.santoso@gmail.com', phone: '0812-6055-7731' } };
+  }
+  setF(k, v) { this.setState({ f: Object.assign({}, this.state.f, { [k]: v }) }); }
+  renderVals() {
+    const s = this.state;
+    const q = s.q.trim().toLowerCase();
+    const list0 = JOBS.filter((j) => (!q || (j.role + ' ' + j.company).toLowerCase().indexOf(q) >= 0) && (!s.city || j.city === s.city) && (!s.type || j.type === s.type));
+    const cur = list0.find((j) => j.id === s.sel) || list0[0] || null;
+    const stage = cur && s.sent[cur.id] ? 'sent' : s.stage;
+    const chipSty = (on) => 'height:36px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (on ? '#1b1b1a' : '#d9d6cd') + ';background:' + (on ? '#1b1b1a' : '#fff') + ';color:' + (on ? '#fff' : '#1b1b1a');
+    const list = list0.map((j) => {
+      const on = !!cur && cur.id === j.id;
+      return { role: j.role, company: j.company, city: j.city, type: j.type, salary: j.salary, posted: j.posted, sel: on,
+        sty: 'text-align:left;display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:12px;cursor:pointer;color:#1b1b1a;background:' + (on ? '#fdf4dc' : '#fff') + ';border:' + (on ? '2px solid #1b1b1a' : '1px solid #e6e3da'),
+        on: () => this.setState({ sel: j.id, stage: 'view', err: '' }) };
+    });
+    const seg = (key, vals, all) => [''].concat(vals).map((v) => ({ label: v || all, sel: s[key] === v, sty: chipSty(s[key] === v), on: () => this.setState({ [key]: v }) }));
+    const mk = (a) => a.map((t) => ({ t }));
+    return {
+      nav: NAV.map((n) => ({ label: n.label, href: n.href, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'padding:8px 14px;border-radius:999px;font-size:14px;text-decoration:none;color:#1b1b1a;font-weight:' + (n.id === ACTIVE ? 700 : 500) + ';background:' + (n.id === ACTIVE ? '#fdf1cf' : 'transparent') })),
+      countLabel: list0.length + ' lowongan ditemukan. Data contoh untuk prototipe.',
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      cities: seg('city', ['Jakarta', 'Tangerang', 'Depok'], 'Semua'), types: seg('type', ['Penuh waktu', 'Kontrak', 'Magang'], 'Semua'),
+      list, empty: list0.length === 0, hasSel: !!cur,
+      sel: cur ? { role: cur.role, company: cur.company, city: cur.city, type: cur.type, salary: cur.salary, text: cur.text, duties: mk(cur.duties), reqs: mk(cur.reqs), skills: mk(cur.skills) } : { role: '', company: '', city: '', type: '', salary: '', text: '', duties: [], reqs: [], skills: [] },
+      showApplyBtn: stage === 'view', showForm: stage === 'form', isSent: stage === 'sent',
+      onOpenApply: () => this.setState({ stage: 'form', err: '' }), onCancelApply: () => this.setState({ stage: 'view', err: '' }),
+      f: s.f, onName: (e) => this.setF('name', e.target.value), onEmail: (e) => this.setF('email', e.target.value), onPhone: (e) => this.setF('phone', e.target.value),
+      cvIsRadixa: s.cv === 'radixa', cvIsFile: s.cv === 'file', onCvRadixa: () => this.setState({ cv: 'radixa' }), onCvFile: () => this.setState({ cv: 'file' }),
+      cvRadixaSty: chipSty(s.cv === 'radixa'), cvFileSty: chipSty(s.cv === 'file'),
+      hasErr: !!s.err, err: s.err,
+      onSubmit: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (!s.f.name.trim() || s.f.email.indexOf('@') < 1) { this.setState({ err: 'Isi nama lengkap dan email yang valid sebelum mengirim.' }); return; }
+        this.setState({ sent: Object.assign({}, s.sent, { [cur.id]: true }), stage: 'view', err: '' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
