@@ -3,60 +3,94 @@
 <head>
 <meta charset="utf-8">
 <title>Masuk Radixa</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
 a{color:#8a5a00}a:hover{color:#5c3c00}
-.fld{width:100%;box-sizing:border-box;height:46px;padding:0 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
-.fld:focus{outline:2px solid #f2b705;outline-offset:1px}
-button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
+.fld{width:100%;box-sizing:border-box;height:50px;padding:0 16px;border:1.5px solid #d9d6cd;border-radius:12px;font:inherit;font-size:16px;color:#1b1b1a;background:#fff;transition:border-color .15s}
+.fld:focus{border-color:#1b1b1a}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:52px;border-radius:12px;border:0;background:#1b1b1a;color:#fff;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.link{border:0;background:none;padding:8px 0;font:inherit;font-size:14px;font-weight:600;color:#8a5a00;cursor:pointer}
+@media (max-width:900px){.hero{padding:32px 24px !important;gap:28px !important}.hero h1{font-size:32px !important}}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
 </style>
 </helmet>
-<div style="display:flex;flex-wrap:wrap;min-height:100vh;font-family:'Noto Sans',system-ui,sans-serif;background:#fff;color:#1b1b1a">
-  <section style="flex:1 1 480px;min-width:0;box-sizing:border-box;background:#1b1b1a;color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-    <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#fff;text-decoration:none">
-      <span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa
-    </a>
-    <div style="display:flex;flex-direction:column;gap:24px;max-width:520px">
-      <h1 style="margin:0;font-size:44px;line-height:1.1;font-weight:700;text-wrap:balance">Satu profil, banyak CV.</h1>
-      <p style="margin:0;font-size:17px;line-height:1.6;color:#d2cfc6">Isi My Profile sekali. Setiap CV mengambil datanya dari sana, jadi riwayat kerja dan pendidikan tidak perlu diketik ulang untuk tiap lowongan.</p>
-      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.5;color:#d2cfc6">
-        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">My Profile</span><span>menyimpan fakta: pekerjaan, pendidikan, proyek, keahlian.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">My CV</span><span>memilih dan menata fakta itu untuk satu lowongan.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:#f2b705;font-weight:700;flex:0 0 84px">Terkunci</span><span>CV yang sudah dikirim tidak berubah lagi.</span></li>
-      </ul>
+
+<div style="display:flex;flex-wrap:wrap;min-height:100vh;font-family:'Noto Sans',system-ui,sans-serif;background:#faf8f3;color:#1b1b1a">
+
+  <section class="hero" style="flex: 1 1 460px; min-width: 0; box-sizing: border-box; color: #fff; padding: 56px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; background-color: #5c3c00">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#fff;text-decoration:none"><span style="width:12px;height:12px;border-radius:50%;background:#f2b705"></span>Radixa</a>
+    <div style="display:flex;flex-direction:column;gap:26px;max-width:520px">
+      <h1 style="margin:0;font-size:46px;line-height:1.08;font-weight:800;text-wrap:balance">Masuk cukup dengan kode OTP.</h1>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#d2cfc6">Tanpa mengingat kata sandi di perangkat baru. Kami kirim kode 6 digit ke email akunmu.</p>
+      <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{how}}" as="h" hint-placeholder-count="3">
+          <li style="{{h.sty}}"><span style="{{h.numSty}}">{{h.n}}</span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700">{{h.title}}</span><span style="font-size:13px;color:#d2cfc6;line-height:1.5">{{h.text}}</span></span></li>
+        </sc-for>
+      </ol>
     </div>
-    <a href="index.html" style="font-size:14px;font-weight:600;color:#d2cfc6">Kembali ke beranda</a>
+    <a href="Daftar.html" style="display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;text-decoration:none">
+      <span style="flex:0 0 40px;height:40px;border-radius:10px;background:#f2b705;color:#1b1b1a;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path></svg></span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700">Belum punya akun?</span><span style="font-size:13px;color:#d2cfc6">Unggah CV-mu dan lihat skor review gratis.</span></span>
+    </a>
   </section>
-  <section style="flex:1 1 420px;min-width:0;box-sizing:border-box;padding:48px 24px;display:flex;align-items:center;justify-content:center">
-    <div style="width:100%;max-width:400px;display:flex;flex-direction:column;gap:20px">
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <h2 style="margin:0;font-size:28px;font-weight:700">Masuk</h2>
-        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Gunakan email yang kamu daftarkan di Radixa.</p>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <label for="email" style="font-size:13px;font-weight:600">Email</label>
-        <input id="email" class="fld" type="email" value="{{email}}" onInput="{{onEmail}}" autocomplete="email">
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <label for="pw" style="font-size:13px;font-weight:600">Kata sandi</label>
-          <button type="button" onClick="{{onToggle}}" style="border:0;background:none;padding:6px 0;font:inherit;font-size:13px;font-weight:600;color:#8a5a00;cursor:pointer">{{showLabel}}</button>
+
+  <section style="flex:1 1 440px;min-width:0;box-sizing:border-box;padding:40px 24px;display:flex;align-items:center;justify-content:center">
+    <div style="width:100%;max-width:440px;background:#fff;border:1px solid #ebe8de;border-radius:20px;box-shadow:0 2px 4px rgba(27,27,26,.04),0 18px 40px rgba(27,27,26,.08);padding:32px;display:flex;flex-direction:column;gap:22px;box-sizing:border-box">
+
+      <div style="display:flex;gap:6px" aria-hidden="true"><span style="{{bar1}}"></span><span style="{{bar2}}"></span></div>
+
+      <sc-if value="{{isId}}" hint-placeholder-val="{{true}}">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:28px;font-weight:800">Masuk</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#5f5d57">Masukkan username atau email akunmu.</p></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label for="usr" style="font-size:13px;font-weight:700">Username atau email</label>
+            <input id="usr" class="fld" type="text" value="{{user}}" onInput="{{onUser}}" autocomplete="username" placeholder="Contoh: budisantoso">
+            <span style="font-size:13px;line-height:1.5;color:#5f5d57">Kode OTP dikirim ke email yang terdaftar di akunmu.</span>
+          </div>
+          <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin:0;font-size:13px;font-weight:600;color:#8c1d18">{{err}}</p></sc-if>
+          <button type="button" class="btn" onClick="{{onSend}}">Kirim kode OTP</button>
+          <p style="margin:0;font-size:14px;color:#3b3a36;text-align:center">Belum punya akun? <a href="Daftar.html" style="font-weight:700">Daftar dan cek CV gratis</a></p>
         </div>
-        <input id="pw" class="fld" type="{{pwType}}" value="{{pw}}" onInput="{{onPw}}" autocomplete="current-password">
-      </div>
-      <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:#3b3a36;cursor:pointer">
-        <input type="checkbox" checked="{{remember}}" onChange="{{onRemember}}" style="width:18px;height:18px;accent-color:#1b1b1a">
-        Ingat saya di perangkat ini
-      </label>
-      <a href="Dashboard.html" style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:10px;background:#1b1b1a;color:#fff;font-size:15px;font-weight:600;text-decoration:none">Masuk</a>
-      <p style="margin:0;font-size:14px;color:#3b3a36">Belum punya akun? <a href="Dashboard.html" style="font-weight:600">Daftar gratis</a></p>
-      <p style="margin:0;font-size:13px;line-height:1.5;color:#6b6962">Ini prototipe alur. Datanya contoh dan tidak dikirim ke server.</p>
+      </sc-if>
+
+      <sc-if value="{{isOtp}}" hint-placeholder-val="{{false}}">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:28px;font-weight:800">Cek emailmu</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#5f5d57">Kode 6 digit sudah dikirim ke <b style="color:#1b1b1a">{{masked}}</b>.</p></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label for="otp" style="font-size:13px;font-weight:700">Kode OTP</label>
+            <input id="otp" class="fld" type="text" inputmode="numeric" maxlength="6" value="{{otp}}" onInput="{{onOtp}}" autocomplete="one-time-code" placeholder="000000" style="text-align:center;font-size:26px;font-weight:700;letter-spacing:.5em;padding-left:.5em">
+            <span style="font-size:12px;color:#6b6962">Prototipe: gunakan kode 123456.</span>
+          </div>
+          <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin:0;font-size:13px;font-weight:600;color:#8c1d18">{{err}}</p></sc-if>
+          <button type="button" class="btn" onClick="{{onVerify}}">Verifikasi dan masuk</button>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+            <button type="button" class="link" onClick="{{onBack}}">Ganti username</button>
+            <button type="button" class="link" onClick="{{onResend}}" disabled="{{resendOff}}" style="{{resendSty}}">{{resendLabel}}</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isOk}}" hint-placeholder-val="{{false}}">
+        <div role="status" style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+          <span style="width:56px;height:56px;border-radius:50%;background:#e4f1e9;color:#25603d;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>
+          <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:28px;font-weight:800">Berhasil masuk</h2><p style="margin:0;font-size:15px;line-height:1.5;color:#5f5d57">Selamat datang kembali, Budi. Ada 1 undangan jadwal wawancara yang menunggu pilihanmu.</p></div>
+          <a href="Dashboard.html" class="btn">Buka dashboard</a>
+          <a href="Jadwal.html" style="font-size:14px;font-weight:700">Pilih jadwal wawancara</a>
+        </div>
+      </sc-if>
+
+      <p style="margin:0;font-size:12px;line-height:1.5;color:#6b6962">Ini prototipe alur. Datanya contoh dan tidak dikirim ke server.</p>
     </div>
   </section>
 </div>
@@ -65,16 +99,42 @@ button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2p
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { email: 'budi.santoso@gmail.com', pw: 'katasandi123', show: false, remember: true };
+    this.state = { step: 'id', user: '', otp: '', cd: 0, err: '' };
   }
+  componentDidMount() { this._t = setInterval(() => { if (this.state.cd > 0) this.setState({ cd: this.state.cd - 1 }); }, 1000); }
+  componentWillUnmount() { clearInterval(this._t); }
   renderVals() {
     const s = this.state;
+    const u = s.user.trim();
+    const masked = u.indexOf('@') > 0 ? u.charAt(0) + '***' + u.slice(u.indexOf('@')) : (u.slice(0, 1) || 'b') + '***@gmail.com';
+    const cur = s.step === 'id' ? 1 : s.step === 'otp' ? 2 : 3;
+    const bar = (on) => 'flex:1;height:5px;border-radius:999px;background:' + (on ? '#f2b705' : '#ebe8de');
+    const how = [
+      { n: 1, title: 'Masukkan username', text: 'Atau email yang kamu pakai saat mendaftar.' },
+      { n: 2, title: 'Terima kode di email', text: 'Kode 6 digit berlaku beberapa menit.' },
+      { n: 3, title: 'Masuk ke portal', text: 'Lanjutkan My Profile, CV, dan lamaranmu.' }
+    ].map((h) => ({ n: h.n, title: h.title, text: h.text,
+      sty: 'display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:' + (h.n === cur ? 'rgba(242,183,5,.16)' : 'transparent') + ';border:1px solid ' + (h.n === cur ? 'rgba(242,183,5,.5)' : 'transparent'),
+      numSty: 'flex:0 0 28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:' + (h.n < cur ? '#25a05a' : h.n === cur ? '#f2b705' : 'rgba(255,255,255,.14)') + ';color:' + (h.n === cur ? '#1b1b1a' : '#fff') }));
     return {
-      email: s.email, pw: s.pw, pwType: s.show ? 'text' : 'password', showLabel: s.show ? 'Sembunyikan' : 'Tampilkan', remember: s.remember,
-      onEmail: (e) => this.setState({ email: e.target.value }),
-      onPw: (e) => this.setState({ pw: e.target.value }),
-      onToggle: () => this.setState({ show: !this.state.show }),
-      onRemember: () => this.setState({ remember: !this.state.remember })
+      how, bar1: bar(true), bar2: bar(cur >= 2),
+      isId: s.step === 'id', isOtp: s.step === 'otp', isOk: s.step === 'ok',
+      user: s.user, otp: s.otp, masked, hasErr: !!s.err, err: s.err,
+      onUser: (e) => this.setState({ user: e.target.value, err: '' }),
+      onOtp: (e) => this.setState({ otp: e.target.value.replace(/\D/g, '').slice(0, 6), err: '' }),
+      onSend: () => {
+        if (u.length < 3) { this.setState({ err: 'Isi username atau email dengan benar (minimal 3 karakter).' }); return; }
+        this.setState({ step: 'otp', cd: 30, otp: '', err: '' });
+      },
+      onVerify: () => {
+        if (s.otp.length < 6) { this.setState({ err: 'Masukkan 6 digit kode OTP.' }); return; }
+        if (s.otp !== '123456') { this.setState({ err: 'Kode tidak cocok. Periksa email-mu atau kirim ulang kode.' }); return; }
+        this.setState({ step: 'ok', err: '' });
+      },
+      onBack: () => this.setState({ step: 'id', otp: '', err: '' }),
+      onResend: () => { if (s.cd === 0) this.setState({ cd: 30, otp: '', err: '' }); },
+      resendOff: s.cd > 0, resendLabel: s.cd > 0 ? 'Kirim ulang dalam ' + s.cd + ' detik' : 'Kirim ulang kode',
+      resendSty: s.cd > 0 ? 'color:#8c8a82;cursor:default' : ''
     };
   }
 }
