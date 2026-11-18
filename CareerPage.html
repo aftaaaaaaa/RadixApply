@@ -3,59 +3,70 @@
 <head>
 <meta charset="utf-8">
 <title>Career Page Radixa</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
 a{color:#8a5a00}a:hover{color:#5c3c00}
 button{font-family:inherit}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
-.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
-.fld{width:100%;box-sizing:border-box;height:44px;padding:0 14px;border:1px solid #cfccc2;border-radius:10px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 18px;border-radius:10px;border:0;background:#1b1b1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.card{border:1px solid #ebe8de;border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(27,27,26,.04),0 8px 24px rgba(27,27,26,.05)}
+.fld{width:100%;box-sizing:border-box;height:46px;padding:0 14px;border:1.5px solid #d9d6cd;border-radius:12px;font:inherit;font-size:15px;color:#1b1b1a;background:#fff}
+.fld:focus{border-color:#1b1b1a;outline:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 20px;border-radius:12px;border:0;background:#1b1b1a;color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:10px;border:0;background:#efede6;color:#1b1b1a;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none}
+.chip{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;background:#efede6;font-size:12px;font-weight:600;color:#3b3a36}
+.fp{width:280px;flex:0 0 280px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto}
+input[type=range]{width:100%;accent-color:#1b1b1a;margin:0}
+@media (max-width:1000px){.fp{width:100%;flex:1 1 100%;position:static;max-height:none}}
 @media (max-width:900px){
   .sbnav{flex-direction:row !important;overflow-x:auto}
   .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
 }
-  /* --- TAMBAHAN CSS LOGO MULAI DARI SINI --- */
-@keyframes logoLoadEffect {
-  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-  60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
-}
-.logo-x-anim {
-  height: 28px;
-  width: auto;
-  margin: 0 1px;
-  animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-.logo-text {
-  font-family: 'Noto Sans', system-ui, sans-serif;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #1b1b1a;
-  display: inline-flex;
-  align-items: center;
-}
+<!-- Ini adalah elemen style untuk logo-->
+  /* Animasi berdetak/muncul saat halaman diload */
+  @keyframes logoLoadEffect {
+    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+    60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .logo-x-anim {
+    height: 28px; /* Sesuaikan dengan tinggi font */
+    width: auto;
+    margin: 0 1px;
+    animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  .logo-text {
+    font-family: 'Noto Sans', system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #1b1b1a; /* Warna teks RADI dan A */
+    display: inline-flex;
+    align-items: center;
+  }
 </style>
+
 </helmet>
 
 <div style="display:flex;flex-direction:column;min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
   <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0">
-    <div class="logo-text" style="padding-left:12px; cursor:pointer;">
-      RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
-    </div>
-    <div style="display:flex;align-items:center;gap:20px">
+    <!-- Ini adalah elemen HTML untuk Header/Navigasi Anda -->
+<div class="logo-text" style="padding-left:12px; cursor:pointer;">
+  RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
+</div>
+ <div style="display:flex;align-items:center;gap:20px">
       <div style="display:flex;padding:3px;gap:3px;background:#f1efe8;border-radius:999px">
         <button type="button" onClick="{{onId}}" style="{{idSty}}">ID</button>
         <button type="button" onClick="{{onEn}}" style="{{enSty}}">EN</button>
       </div>
-      <a href="Main.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
+      <a href="index.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
     </div>
   </header>
   <div style="display:flex;flex:1 1 auto;flex-wrap:wrap">
@@ -63,53 +74,116 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f2b7
       <nav class="sbnav" style="display:flex;flex-direction:column;gap:4px;padding:16px 12px;flex:1">
         <sc-for list="{{nav}}" as="n" hint-placeholder-count="9">
           <a href="{{n.href}}" style="{{n.sty}}" aria-current="{{n.cur}}" title="{{n.label}}">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"></path></svg>
             <span style="{{labelSty}}">{{n.label}}</span>
             <sc-if value="{{n.dot}}" hint-placeholder-val="{{false}}"><span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#d93025" aria-label="Ada saran baru"></span></sc-if>
           </a>
         </sc-for>
       </nav>
       <button type="button" onClick="{{onCollapse}}" style="display:flex;align-items:center;gap:12px;margin:8px 12px 16px;padding:10px 14px;border:0;background:none;font-size:14px;font-weight:500;color:#3b3a36;cursor:pointer;border-radius:10px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"></path></svg>
         <span style="{{labelSty}}">Ciutkan menu</span>
       </button>
     </aside>
 
-    <main style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:24px">
+    <index style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:20px">
       <div style="display:flex;flex-direction:column;gap:4px">
-        <h1 style="margin:0;font-size:28px;font-weight:700">Career Page</h1>
-        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Lowongan yang dicocokkan dengan My Profile. CV yang kamu kirim akan terkunci setelah lamaran masuk.</p>
+        <h1 style="margin:0;font-size:30px;font-weight:800">Career Page</h1>
+        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Lowongan yang dicocokkan dengan My Profile. Lamar dengan CV dari Radixa, CV-nya terkunci setelah terkirim.</p>
       </div>
-      <div style="max-width:520px;display:flex;flex-direction:column;gap:6px">
-        <label for="q" style="font-size:13px;font-weight:600">Cari posisi atau perusahaan</label>
-        <input id="q" class="fld" type="text" value="{{q}}" onInput="{{onQ}}" placeholder="Contoh: Data Analyst">
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:2 1 260px;min-width:0;display:flex;flex-direction:column;gap:6px"><label for="q" style="font-size:13px;font-weight:700">Cari posisi, keahlian, atau perusahaan</label><input id="q" class="fld" type="text" value="{{q}}" onInput="{{onQ}}" placeholder="Contoh: SQL"></div>
+        <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">Urutkan</span>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{sorts}}" as="so" hint-placeholder-count="3"><button type="button" onClick="{{so.on}}" aria-pressed="{{so.sel}}" style="{{so.sty}}">{{so.label}}</button></sc-for></div>
+        </div>
+        <button type="button" class="btn2" onClick="{{onToggleFilters}}" style="height:46px;{{fbtnSty}}">{{filterBtn}}</button>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;max-width:1040px">
-        <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
-          <article class="card" style="padding:20px;display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
-              <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
-                <h2 style="margin:0;font-size:17px;font-weight:700">{{j.role}}</h2>
-                <span style="font-size:13px;color:#4a4944">{{j.company}} · {{j.city}} · {{j.type}}</span>
+
+      <sc-if value="{{hasChips}}" hint-placeholder-val="{{false}}">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <sc-for list="{{chips}}" as="ch" hint-placeholder-count="3"><button type="button" onClick="{{ch.on}}" aria-label="{{ch.aria}}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #1b1b1a;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#1b1b1a">{{ch.label}}<span aria-hidden="true">✕</span></button></sc-for>
+          <button type="button" onClick="{{onReset}}" style="border:0;background:none;font-size:13px;font-weight:700;color:#8a5a00;cursor:pointer;padding:6px">Hapus semua</button>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+
+        <aside class="fp card" style="{{fpSty}}" aria-label="Filter lowongan">
+          <div style="padding:20px;display:flex;flex-direction:column;gap:22px">
+            <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+              <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:8px;min-width:0">
+                <legend style="padding:0;margin-bottom:6px;font-size:14px;font-weight:800">{{g.title}}</legend>
+                <sc-for list="{{g.options}}" as="o" hint-placeholder-count="4">
+                  <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:2px 0"><input type="checkbox" checked="{{o.checked}}" onChange="{{o.on}}" style="width:18px;height:18px;accent-color:#1b1b1a;flex:0 0 auto"><span style="flex:1;min-width:0">{{o.label}}</span><span style="font-size:12px;color:#5f5d57">{{o.count}}</span></label>
+                </sc-for>
+              </fieldset>
+            </sc-for>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><label for="pay" style="font-size:14px;font-weight:800">Gaji minimum</label><span style="font-size:13px;font-weight:700">{{payLabel}}</span></div>
+              <input id="pay" type="range" min="0" max="12" step="1" value="{{pay}}" onInput="{{onPay}}">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#5f5d57"><span>Semua</span><span>Rp 12 jt+</span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:14px;font-weight:800">Tanggal posting</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{dates}}" as="d" hint-placeholder-count="4"><button type="button" onClick="{{d.on}}" aria-pressed="{{d.sel}}" style="{{d.sty}}">{{d.label}}</button></sc-for></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked="{{onlyMatch}}" onChange="{{onOnlyMatch}}" style="width:18px;height:18px;accent-color:#1b1b1a">Cocok 70% atau lebih</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked="{{onlyEasy}}" onChange="{{onOnlyEasy}}" style="width:18px;height:18px;accent-color:#1b1b1a">Lamar cepat saja</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked="{{onlySaved}}" onChange="{{onOnlySaved}}" style="width:18px;height:18px;accent-color:#1b1b1a">Tersimpan saja ({{savedCount}})</label>
+            </div>
+          </div>
+        </aside>
+
+        <section aria-label="Hasil lowongan" style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <p style="margin:0;font-size:14px;color:#3b3a36"><b>{{count}}</b> lowongan ditemukan. <span style="color:#5f5d57">Data contoh untuk prototipe.</span></p>
+          <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
+            <article class="card" style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <span style="{{j.logoSty}}">{{j.ini}}</span>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                  <h2 style="margin:0;font-size:18px;line-height:1.3;font-weight:800">{{j.role}}</h2>
+                  <span style="font-size:13px;color:#3b3a36">{{j.company}} · {{j.city}} · {{j.setting}}</span>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><span class="chip">{{j.salary}}</span><span class="chip">{{j.type}}</span><span class="chip">{{j.level}}</span><span class="chip">{{j.cat}}</span><sc-if value="{{j.easy}}" hint-placeholder-val="{{false}}"><span class="chip" style="background:#fdf1cf;color:#7a4f00">Lamar cepat</span></sc-if></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:0 0 auto"><span style="padding:4px 10px;border-radius:999px;background:#e4f1e9;color:#1d4a30;font-size:12px;font-weight:800;white-space:nowrap">Cocok {{j.match}}%</span><span style="font-size:12px;color:#5f5d57;white-space:nowrap">{{j.posted}}</span></div>
               </div>
-              <span style="flex:0 0 auto;padding:3px 10px;border-radius:999px;background:#e4f1e9;color:#25603d;font-size:12px;font-weight:700">Cocok {{j.match}}%</span>
-            </div>
-            <p style="margin:0;font-size:13px;line-height:1.5;color:#3b3a36">{{j.text}}</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px">
-              <sc-for list="{{j.skills}}" as="sk" hint-placeholder-count="3"><span style="padding:3px 10px;border-radius:999px;background:#efede6;font-size:12px;font-weight:500">{{sk.t}}</span></sc-for>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-              <sc-if value="{{j.canApply}}" hint-placeholder-val="{{true}}"><button type="button" class="btn" onClick="{{j.onApply}}">Lamar sekarang</button></sc-if>
-              <sc-if value="{{j.applied}}" hint-placeholder-val="{{false}}">
-                <span style="font-size:13px;font-weight:600;color:#25603d">Sudah dilamar</span>
-                <a href="Lamaran.html" style="font-size:13px;font-weight:600">Lihat di My Applications</a>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                <sc-if value="{{j.canApply}}" hint-placeholder-val="{{true}}"><button type="button" class="btn" onClick="{{j.onApply}}">Lamar</button></sc-if>
+                <sc-if value="{{j.applied}}" hint-placeholder-val="{{false}}"><span style="padding:11px 16px;border-radius:12px;background:#e4f1e9;color:#1d4a30;font-size:14px;font-weight:800">Sudah dilamar</span><a href="Lamaran.html" style="font-size:13px;font-weight:700">Lihat di My Applications</a></sc-if>
+                <button type="button" class="btn2" onClick="{{j.onDetail}}" aria-expanded="{{j.open}}">{{j.detailLabel}}</button>
+                <button type="button" class="btn2" onClick="{{j.onSave}}" aria-pressed="{{j.saved}}">{{j.saveLabel}}</button>
+              </div>
+
+              <sc-if value="{{j.applying}}" hint-placeholder-val="{{false}}">
+                <div style="padding:18px;border-radius:14px;background:#fbf9f4;border:1px solid #ece9e0;display:flex;flex-direction:column;gap:12px">
+                  <span style="font-size:15px;font-weight:800">Lamar sebagai {{j.role}}</span>
+                  <span style="font-size:13px;color:#4a4944">Pilih CV yang dikirim. CV akan terkunci setelah lamaran terkirim.</span>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{cvOpts}}" as="cv" hint-placeholder-count="2"><button type="button" onClick="{{cv.on}}" aria-pressed="{{cv.sel}}" style="{{cv.sty}}"><span style="font-size:14px;font-weight:800">{{cv.title}}</span><span style="font-size:12px;color:#4a4944">{{cv.sub}}</span></button></sc-for></div>
+                  <a href="IsiCV.html" style="font-size:13px;font-weight:700">Buat CV khusus untuk lowongan ini</a>
+                  <div style="display:flex;gap:8px"><button type="button" class="btn" onClick="{{j.onSend}}">Kirim lamaran</button><button type="button" class="btn2" onClick="{{j.onCancel}}" style="height:44px">Batal</button></div>
+                </div>
               </sc-if>
-            </div>
-          </article>
-        </sc-for>
+
+              <sc-if value="{{j.open}}" hint-placeholder-val="{{false}}">
+                <div style="display:flex;flex-direction:column;gap:16px;padding-top:6px;border-top:1px solid #efede6">
+                  <p style="margin:0;font-size:14px;line-height:1.7;color:#3b3a36">{{j.text}}</p>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+                    <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:800">Tanggung jawab</span><ul style="margin:0;padding-left:1.1em;font-size:14px;line-height:1.7;color:#3b3a36"><sc-for list="{{j.duties}}" as="d" hint-placeholder-count="3"><li>{{d.t}}</li></sc-for></ul></div>
+                    <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:800">Kualifikasi</span><ul style="margin:0;padding-left:1.1em;font-size:14px;line-height:1.7;color:#3b3a36"><sc-for list="{{j.reqs}}" as="r" hint-placeholder-count="3"><li>{{r.t}}</li></sc-for></ul></div>
+                  </div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{j.skills}}" as="k" hint-placeholder-count="3"><span style="{{k.sty}}">{{k.mark}} {{k.t}}</span></sc-for></div>
+                </div>
+              </sc-if>
+            </article>
+          </sc-for>
+          <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+            <div class="card" style="padding:32px;display:flex;flex-direction:column;gap:10px;align-items:flex-start"><span style="font-size:17px;font-weight:800">Belum ada lowongan yang cocok</span><span style="font-size:14px;line-height:1.6;color:#4a4944">Kurangi filter atau ubah kata kunci untuk melihat lebih banyak lowongan.</span><button type="button" class="btn" onClick="{{onReset}}">Hapus semua filter</button></div>
+          </sc-if>
+        </section>
       </div>
-      <sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin:0;font-size:14px;color:#5f5d57">Tidak ada lowongan yang cocok dengan pencarian ini.</p></sc-if>
-    </main>
+    </index>
   </div>
 </div>
 </x-dc>
@@ -127,49 +201,110 @@ const NAV = [
   { id: 'career', label: 'Career Page', href: 'CareerPage.html', d: 'M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18' }
 ];
 const ACTIVE = 'career';
+const MY = ['sql', 'python', 'excel', 'looker studio', 'r', 'statistika', 'dashboard'];
+const J = (o) => o;
 const JOBS = [
-  { id: 'j1', role: 'Data Analyst', company: 'Sinar Logistik', city: 'Jakarta', type: 'Penuh waktu', match: 91, text: 'Menganalisis data pengiriman dan membangun dashboard performa gudang untuk tim operasional.', skills: ['SQL', 'Python', 'Looker Studio'] },
-  { id: 'j2', role: 'Business Intelligence Analyst', company: 'Tokoloka', city: 'Tangerang', type: 'Penuh waktu', match: 84, text: 'Menyusun laporan penjualan dan metrik pelanggan untuk tim komersial.', skills: ['SQL', 'Excel', 'Dashboard'], applied: true },
-  { id: 'j3', role: 'Junior Data Analyst', company: 'Nusa Pangan', city: 'Depok', type: 'Penuh waktu', match: 79, text: 'Merapikan data pasokan dan membuat ringkasan mingguan untuk manajer cabang.', skills: ['Excel', 'SQL', 'Statistika'], applied: true },
-  { id: 'j4', role: 'Analis Data Riset', company: 'Lembaga Survei Nusantara', city: 'Jakarta', type: 'Kontrak 12 bulan', match: 76, text: 'Mengolah data survei dan menjalankan uji statistik untuk laporan klien.', skills: ['R', 'Statistika', 'Excel'] },
-  { id: 'j5', role: 'Analis Penjualan', company: 'PT Maju Retail Nusantara', city: 'Jakarta', type: 'Penuh waktu', match: 72, text: 'Memantau penjualan per cabang dan menyiapkan bahan rapat mingguan.', skills: ['Excel', 'SQL', 'Looker Studio'] },
-  { id: 'j6', role: 'Data Analyst Magang', company: 'Warung Digital', city: 'Depok', type: 'Magang 6 bulan', match: 68, text: 'Membantu tim produk membaca data pesanan dan menyiapkan laporan bulanan.', skills: ['Excel', 'Python'] }
+  J({ id: 'j1', role: 'Data Analyst', company: 'Sinar Logistik', ini: 'SL', col: '#2F6FDB', cat: 'Data dan analitik', level: 'Pemula', type: 'Penuh waktu', setting: 'Hybrid', city: 'Jakarta', min: 7, max: 10, days: 2, easy: true, skills: ['SQL', 'Python', 'Looker Studio', 'Excel'],
+    text: 'Bergabung dengan tim operasional untuk membaca data pengiriman dan mengubahnya menjadi keputusan harian di gudang.', duties: ['Menganalisis data pengiriman dan keterlambatan', 'Membangun dashboard performa gudang', 'Menyiapkan laporan mingguan'], reqs: ['S1 Statistika atau terkait', 'Menguasai SQL dan Excel', 'Terbiasa dengan Python atau R'] }),
+  J({ id: 'j2', role: 'Business Intelligence Analyst', company: 'Tokoloka', ini: 'TK', col: '#23844A', cat: 'Data dan analitik', level: 'Menengah', type: 'Penuh waktu', setting: 'Di kantor', city: 'Tangerang', min: 8, max: 11, days: 3, easy: true, skills: ['SQL', 'Excel', 'Dashboard', 'Statistika'],
+    text: 'Menyusun laporan penjualan dan metrik pelanggan untuk tim komersial toko daring.', duties: ['Membuat laporan penjualan per kategori', 'Memantau metrik pelanggan', 'Mendampingi tim komersial membaca data'], reqs: ['Pengalaman 1 tahun di analisis data', 'Mahir SQL dan alat dashboard', 'Mampu menjelaskan hasil ke non-teknis'] }),
+  J({ id: 'j3', role: 'Junior Data Analyst', company: 'Nusa Pangan', ini: 'NP', col: '#B3641E', cat: 'Data dan analitik', level: 'Pemula', type: 'Penuh waktu', setting: 'Di kantor', city: 'Depok', min: 5, max: 7, days: 5, easy: false, skills: ['Excel', 'SQL', 'Statistika'],
+    text: 'Merapikan data pasokan dan membuat ringkasan mingguan untuk manajer cabang.', duties: ['Membersihkan data pasokan', 'Membuat ringkasan mingguan', 'Membantu audit stok bulanan'], reqs: ['Fresh graduate dipersilakan', 'Menguasai Excel', 'Paham statistika dasar'] }),
+  J({ id: 'j4', role: 'Data Analyst (Remote)', company: 'Kopi Kelana', ini: 'KK', col: '#8A5A00', cat: 'Data dan analitik', level: 'Menengah', type: 'Penuh waktu', setting: 'Remote', city: 'Remote', min: 9, max: 12, days: 1, easy: true, skills: ['SQL', 'Python', 'Dashboard'],
+    text: 'Memantau penjualan gerai dan program loyalitas, bekerja jarak jauh dengan tim produk.', duties: ['Memantau penjualan per gerai', 'Menganalisis program loyalitas', 'Menyajikan temuan di rapat mingguan'], reqs: ['Pengalaman 2 tahun analisis data', 'Mahir SQL dan Python', 'Nyaman bekerja mandiri'] }),
+  J({ id: 'j5', role: 'Analis Data Riset', company: 'Lembaga Survei Nusantara', ini: 'LS', col: '#6B4FBB', cat: 'Data dan analitik', level: 'Pemula', type: 'Kontrak', setting: 'Hybrid', city: 'Jakarta', min: 6, max: 8, days: 8, easy: true, skills: ['R', 'Statistika', 'Excel'],
+    text: 'Mengolah data survei dan menjalankan uji statistik untuk laporan klien.', duties: ['Membersihkan data survei', 'Menjalankan uji statistik', 'Menulis ringkasan temuan'], reqs: ['S1 Statistika atau Sosial', 'Mahir R atau SPSS', 'Teliti menulis laporan'] }),
+  J({ id: 'j6', role: 'Staf Administrasi', company: 'Warung Digital', ini: 'WD', col: '#555555', cat: 'Administrasi', level: 'Pemula', type: 'Penuh waktu', setting: 'Di kantor', city: 'Depok', min: 4, max: 5.5, days: 9, easy: false, skills: ['Excel', 'Administrasi'],
+    text: 'Mengelola dokumen, jadwal, dan pesanan harian tim operasional.', duties: ['Mengelola dokumen dan arsip', 'Mengatur jadwal tim', 'Memeriksa pesanan'], reqs: ['Minimal D3 atau SMK', 'Mahir Google Workspace atau Excel', 'Komunikatif dan teliti'] }),
+  J({ id: 'j7', role: 'Customer Service', company: 'Sinar Logistik', ini: 'SL', col: '#2F6FDB', cat: 'Layanan pelanggan', level: 'Pemula', type: 'Penuh waktu', setting: 'Di kantor', city: 'Jakarta', min: 4.5, max: 6, days: 12, easy: true, skills: ['Komunikasi', 'Layanan pelanggan'],
+    text: 'Melayani pertanyaan pelanggan tentang status pengiriman lewat chat dan telepon.', duties: ['Menjawab pertanyaan pelanggan', 'Menindaklanjuti keluhan', 'Mencatat laporan harian'], reqs: ['Komunikasi baik', 'Terbiasa dengan chat support', 'Siap kerja bergilir'] }),
+  J({ id: 'j8', role: 'Data Analyst Magang', company: 'Warung Digital', ini: 'WD', col: '#555555', cat: 'Data dan analitik', level: 'Magang', type: 'Magang', setting: 'Hybrid', city: 'Depok', min: 2.5, max: 2.5, days: 0, easy: true, skills: ['Excel', 'Python', 'SQL'],
+    text: 'Membantu tim produk membaca data pesanan dan menyiapkan laporan bulanan selama 6 bulan.', duties: ['Merapikan data pesanan', 'Menyiapkan laporan bulanan', 'Membantu analisis sederhana'], reqs: ['Mahasiswa tingkat akhir atau fresh graduate', 'Paham Excel', 'Mau belajar SQL'] }),
+  J({ id: 'j9', role: 'Digital Marketing Analyst', company: 'Kopi Kelana', ini: 'KK', col: '#8A5A00', cat: 'Pemasaran', level: 'Menengah', type: 'Penuh waktu', setting: 'Hybrid', city: 'Bandung', min: 8, max: 10, days: 6, easy: true, skills: ['Excel', 'Dashboard', 'SQL'],
+    text: 'Mengukur performa iklan dan konten, lalu merekomendasikan anggaran yang lebih efisien.', duties: ['Mengukur performa kampanye', 'Menyusun laporan mingguan', 'Menguji variasi iklan'], reqs: ['Pengalaman 1–2 tahun di pemasaran digital', 'Paham metrik iklan', 'Mahir Excel'] }),
+  J({ id: 'j10', role: 'Web Developer', company: 'Tokoloka', ini: 'TK', col: '#23844A', cat: 'Teknologi', level: 'Menengah', type: 'Kontrak', setting: 'Remote', city: 'Remote', min: 10, max: 14, days: 4, easy: false, skills: ['JavaScript', 'React', 'SQL'],
+    text: 'Mengembangkan fitur halaman toko daring bersama tim produk.', duties: ['Membangun fitur halaman produk', 'Menulis tes otomatis', 'Memperbaiki masalah performa'], reqs: ['Pengalaman 2 tahun front-end', 'Mahir JavaScript dan React', 'Terbiasa code review'] })
 ];
+const GROUPS = [
+  ['cat', 'Kategori', ['Data dan analitik', 'Administrasi', 'Layanan pelanggan', 'Pemasaran', 'Teknologi']],
+  ['level', 'Level pengalaman', ['Magang', 'Pemula', 'Menengah']],
+  ['type', 'Jenis kerja', ['Penuh waktu', 'Kontrak', 'Magang']],
+  ['setting', 'Lokasi kerja', ['Di kantor', 'Hybrid', 'Remote']],
+  ['city', 'Kota', ['Jakarta', 'Tangerang', 'Depok', 'Bandung', 'Remote']]
+];
+const DATES = [['', 'Kapan saja'], ['1', '24 jam'], ['3', '3 hari'], ['7', '7 hari'], ['30', '30 hari']];
+const n1 = (n) => String(n).replace('.', ',');
+const salaryOf = (j) => (j.min === j.max ? 'Rp ' + n1(j.min) + ' juta' : 'Rp ' + n1(j.min) + '–' + n1(j.max) + ' juta');
+const postedOf = (d) => (d === 0 ? 'Hari ini' : d === 1 ? '1 hari lalu' : d < 7 ? d + ' hari lalu' : Math.floor(d / 7) + ' minggu lalu');
+const matchOf = (j) => Math.round((100 * j.skills.filter((k) => MY.indexOf(k.toLowerCase()) >= 0).length) / j.skills.length);
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { lang: 'id', collapsed: false, q: '', applied: { j2: true, j3: true } };
+    this.state = { lang: 'id', collapsed: false, q: '', sort: 'rel', f: { cat: {}, level: {}, type: {}, setting: {}, city: {} }, pay: 0, date: '', onlyMatch: false, onlyEasy: false, onlySaved: false,
+      showFilters: true, open: '', applying: '', cv: 'index', applied: { j2: true }, saved: { j3: true }, vw: 1440 };
   }
+  componentDidMount() { this._rs = () => this.setState({ vw: window.innerWidth }); try { this._rs(); window.addEventListener('resize', this._rs); } catch (e) {} }
+  componentWillUnmount() { try { window.removeEventListener('resize', this._rs); } catch (e) {} }
   renderVals() {
     const s = this.state;
     const sbW = s.collapsed ? 76 : 240;
     const nav = NAV.map((n) => {
-      const sub = n.id === ACTIVE && n.sub;
-      const top = n.id === ACTIVE && !n.sub;
-      const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
-      return {
-        label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
-        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 600 : 500) +
-          ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px'
-      };
+      const sub = n.id === ACTIVE && n.sub; const top = n.id === ACTIVE && !n.sub; const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
+      return { label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 700 : 500) + ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px' };
     });
     const pill = (on) => 'height:34px;padding:0 18px;border:0;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;' + (on ? 'background:#1b1b1a;color:#fff' : 'background:transparent;color:#4a4944');
+    const chipBtn = (on) => 'height:34px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (on ? '#1b1b1a' : '#d9d6cd') + ';background:' + (on ? '#1b1b1a' : '#fff') + ';color:' + (on ? '#fff' : '#1b1b1a');
     const q = s.q.trim().toLowerCase();
-    const jobs = JOBS.filter((j) => !q || (j.role + ' ' + j.company).toLowerCase().indexOf(q) >= 0).map((j) => {
-      const done = !!s.applied[j.id];
-      return {
-        role: j.role, company: j.company, city: j.city, type: j.type, match: j.match, text: j.text, skills: j.skills.map((t) => ({ t })),
-        applied: done, canApply: !done, onApply: () => this.setState({ applied: Object.assign({}, s.applied, { [j.id]: true }) })
-      };
+    const F = s.f;
+    const has = (k, v) => Object.keys(F[k]).filter((x) => F[k][x]).length === 0 || !!F[k][v];
+    let list = JOBS.filter((j) => (!q || (j.role + ' ' + j.company + ' ' + j.skills.join(' ')).toLowerCase().indexOf(q) >= 0) && has('cat', j.cat) && has('level', j.level) && has('type', j.type) && has('setting', j.setting) && has('city', j.city)
+      && j.max >= s.pay && (!s.date || j.days <= Number(s.date)) && (!s.onlyMatch || matchOf(j) >= 70) && (!s.onlyEasy || j.easy) && (!s.onlySaved || s.saved[j.id]));
+    list = list.slice().sort((a, b) => (s.sort === 'new' ? a.days - b.days : s.sort === 'pay' ? b.max - a.max : matchOf(b) - matchOf(a) || a.days - b.days));
+    const setF = (k, v) => this.setState({ f: Object.assign({}, F, { [k]: Object.assign({}, F[k], { [v]: !F[k][v] }) }) });
+
+    const groups = GROUPS.map((g) => ({ title: g[1], options: g[2].map((v) => ({ label: v, count: JOBS.filter((j) => j[g[0]] === v).length, checked: !!F[g[0]][v], on: () => setF(g[0], v) })) }));
+    const chips = [];
+    GROUPS.forEach((g) => g[2].forEach((v) => { if (F[g[0]][v]) chips.push({ label: v, aria: 'Hapus filter ' + v, on: () => setF(g[0], v) }); }));
+    if (s.pay > 0) chips.push({ label: 'Gaji ≥ Rp ' + s.pay + ' jt', aria: 'Hapus filter gaji', on: () => this.setState({ pay: 0 }) });
+    if (s.date) chips.push({ label: 'Posting ' + DATES.find((d) => d[0] === s.date)[1], aria: 'Hapus filter tanggal', on: () => this.setState({ date: '' }) });
+    if (s.onlyMatch) chips.push({ label: 'Cocok 70%+', aria: 'Hapus filter kecocokan', on: () => this.setState({ onlyMatch: false }) });
+    if (s.onlyEasy) chips.push({ label: 'Lamar cepat', aria: 'Hapus filter lamar cepat', on: () => this.setState({ onlyEasy: false }) });
+    if (s.onlySaved) chips.push({ label: 'Tersimpan', aria: 'Hapus filter tersimpan', on: () => this.setState({ onlySaved: false }) });
+    const savedCount = Object.keys(s.saved).filter((k) => s.saved[k]).length;
+    const narrow = s.vw < 1000;
+
+    const jobs = list.map((j) => {
+      const open = s.open === j.id; const ap = !!s.applied[j.id]; const sv = !!s.saved[j.id];
+      const mk = (a) => a.map((t) => ({ t }));
+      return { role: j.role, company: j.company, city: j.city, setting: j.setting, type: j.type, level: j.level, cat: j.cat, ini: j.ini, easy: j.easy, text: j.text, salary: salaryOf(j) + ' / bln', match: matchOf(j), posted: postedOf(j.days),
+        logoSty: 'flex:0 0 48px;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;background:' + j.col,
+        open, detailLabel: open ? 'Tutup detail' : 'Lihat detail', onDetail: () => this.setState({ open: open ? '' : j.id }),
+        applied: ap, canApply: !ap && s.applying !== j.id, applying: s.applying === j.id, onApply: () => this.setState({ applying: j.id }), onCancel: () => this.setState({ applying: '' }),
+        onSend: () => this.setState({ applied: Object.assign({}, s.applied, { [j.id]: true }), applying: '' }),
+        saved: sv, saveLabel: sv ? 'Tersimpan' : 'Simpan', onSave: () => this.setState({ saved: Object.assign({}, s.saved, { [j.id]: !sv }) }),
+        duties: mk(j.duties), reqs: mk(j.reqs),
+        skills: j.skills.map((k) => { const ok = MY.indexOf(k.toLowerCase()) >= 0; return { t: k, mark: ok ? 'Cocok:' : 'Belum ada:', sty: 'padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;' + (ok ? 'background:#e4f1e9;color:#1d4a30' : 'background:#efede6;color:#4a4944') }; }) };
     });
+
     return {
-      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #e8e6e0;display:flex;flex-direction:column;overflow-y:auto',
+      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #ebe8de;background:#fff;display:flex;flex-direction:column;overflow-y:auto',
       labelSty: s.collapsed ? 'display:none' : 'white-space:nowrap', collapseIconSty: 'flex:0 0 auto;' + (s.collapsed ? 'transform:rotate(180deg)' : ''),
-      onCollapse: () => this.setState({ collapsed: !s.collapsed }),
-      idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
+      onCollapse: () => this.setState({ collapsed: !s.collapsed }), idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
       onId: () => this.setState({ lang: 'id' }), onEn: () => this.setState({ lang: 'en' }),
-      q: s.q, onQ: (e) => this.setState({ q: e.target.value }), jobs, empty: jobs.length === 0
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      sorts: [['rel', 'Paling cocok'], ['new', 'Terbaru'], ['pay', 'Gaji tertinggi']].map((o) => ({ label: o[1], sel: s.sort === o[0], sty: chipBtn(s.sort === o[0]), on: () => this.setState({ sort: o[0] }) })),
+      filterBtn: s.showFilters ? 'Sembunyikan filter' : 'Tampilkan filter' + (chips.length ? ' (' + chips.length + ')' : ''), onToggleFilters: () => this.setState({ showFilters: !s.showFilters }), fbtnSty: '',
+      fpSty: s.showFilters ? '' : 'display:none',
+      hasChips: chips.length > 0, chips, onReset: () => this.setState({ q: '', f: { cat: {}, level: {}, type: {}, setting: {}, city: {} }, pay: 0, date: '', onlyMatch: false, onlyEasy: false, onlySaved: false }),
+      groups, pay: s.pay, payLabel: s.pay ? 'Rp ' + s.pay + ' juta+' : 'Semua', onPay: (e) => this.setState({ pay: Number(e.target.value) }),
+      dates: DATES.map((d) => ({ label: d[1], sel: s.date === d[0], sty: chipBtn(s.date === d[0]), on: () => this.setState({ date: d[0] }) })),
+      onlyMatch: s.onlyMatch, onlyEasy: s.onlyEasy, onlySaved: s.onlySaved, savedCount,
+      onOnlyMatch: () => this.setState({ onlyMatch: !s.onlyMatch }), onOnlyEasy: () => this.setState({ onlyEasy: !s.onlyEasy }), onOnlySaved: () => this.setState({ onlySaved: !s.onlySaved }),
+      count: list.length, jobs, empty: list.length === 0,
+      cvOpts: [{ id: 'index', title: 'Resume utama', sub: 'Template Klasik · A4 · draf' }, { id: 'da', title: 'Data Analyst', sub: 'Template Aksen · terkunci, sudah terkirim' }].map((c) => ({ title: c.title, sub: c.sub, sel: s.cv === c.id, on: () => this.setState({ cv: c.id }),
+        sty: 'text-align:left;display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:12px;cursor:pointer;color:#1b1b1a;background:#fff;border:' + (s.cv === c.id ? '2px solid #1b1b1a' : '1.5px solid #d9d6cd') }))
     };
   }
 }
