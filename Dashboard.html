@@ -10,148 +10,226 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
-a{color:#8a5a00}a:hover{color:#5c3c00}
-button{font-family:inherit}
-button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
-.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+body { margin:0; font-family:'Noto Sans',system-ui,sans-serif; background-color: #fcfcfc; }
+a { color:#8a5a00; transition: color 0.2s ease; }
+a:hover { color:#5c3c00; }
+button { font-family:inherit; transition: all 0.2s ease; }
+button:focus-visible, a:focus-visible { outline:2px solid #f2b705; outline-offset:2px; }
+
+/* Styling Card Modern */
+.card {
+  border: 1px solid #eae7df;
+  border-radius: 16px; /* Lebih membulat */
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.card:hover {
+  box-shadow: 0 10px 24px rgba(226, 179, 13, 0.12); /* Shadow keemasan lembut */
+  border-color: #f2b705;
+  transform: translateY(-3px);
+}
+
+/* Animasi Progress Bar */
+@keyframes progressLoad {
+  0% { width: 0%; }
+  100% { width: 86%; }
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f2b705, #ffcc33);
+  border-radius: 999px;
+  animation: progressLoad 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Efek Hover untuk List Item (Langkah & Jadwal) */
+.list-item-link {
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.list-item-link:hover {
+  background-color: #fff9e6;
+  padding-left: 26px !important; /* Memberikan efek bergeser */
+  border-left: 4px solid #f2b705;
+}
+.list-item-link:hover .arrow-icon {
+  transform: translateX(4px);
+  color: #f2b705 !important;
+}
+.arrow-icon {
+  transition: all 0.25s ease;
+}
+
+/* Efek Menu Sidebar */
+.nav-link {
+  transition: all 0.2s ease;
+}
+.nav-link:hover {
+  background-color: #fdf1cf !important;
+  transform: translateX(4px);
+}
+
+/* Responsivitas Mobile */
 @media (max-width:900px){
-  .sbnav{flex-direction:row !important;overflow-x:auto}
-  .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
+  .sbnav { flex-direction:row !important; overflow-x:auto; padding: 12px !important; }
+  .sb { flex:1 1 100% !important; max-width:none !important; border-right:0 !important; border-bottom:1px solid #e8e6e0; }
+  .dashboard-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Animasi Logo */
+@keyframes logoLoadEffect {
+  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.logo-x-anim {
+  height: 28px;
+  width: auto;
+  margin: 0 1px;
+  animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+.logo-text {
+  font-family: 'Noto Sans', system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #1b1b1a;
+  display: inline-flex;
+  align-items: center;
 }
 </style>
-
- <!-- Ini adalah elemen style untuk logo-->
-<style>
-  /* Animasi berdetak/muncul saat halaman diload */
-  @keyframes logoLoadEffect {
-    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-    60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-    100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  }
-  .logo-x-anim {
-    height: 28px; /* Sesuaikan dengan tinggi font */
-    width: auto;
-    margin: 0 1px;
-    animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  }
-  .logo-text {
-    font-family: 'Noto Sans', system-ui, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    color: #1b1b1a; /* Warna teks RADI dan A */
-    display: inline-flex;
-    align-items: center;
-  }
-</style>
-
 </helmet>
 
-<div style="display:flex;flex-direction:column;min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
-  <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0">
-    <!-- Ini adalah elemen HTML untuk Header/Navigasi Anda -->
-<div class="logo-text" style="padding-left:12px; cursor:pointer;">
-  RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
-</div>
+<div style="display:flex;flex-direction:column;min-height:100vh;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
+  
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:70px;background:#fff;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0; position:sticky; top:0; z-index:10;">
+    <div class="logo-text" style="padding-left:12px; cursor:pointer;">
+      RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
+    </div>
     <div style="display:flex;align-items:center;gap:20px">
-      <div style="display:flex;padding:3px;gap:3px;background:#f1efe8;border-radius:999px">
+      <div style="display:flex;padding:4px;gap:4px;background:#f1efe8;border-radius:999px">
         <button type="button" onClick="{{onId}}" style="{{idSty}}">ID</button>
         <button type="button" onClick="{{onEn}}" style="{{enSty}}">EN</button>
       </div>
-      <a href="index.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
+      <a href="index.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none; padding:8px 16px; border-radius:8px; border:1px solid #eae7df; transition:all 0.2s" onMouseOver="this.style.background='#f1efe8'" onMouseOut="this.style.background='transparent'">Keluar</a>
     </div>
   </header>
+
   <div style="display:flex;flex:1 1 auto;flex-wrap:wrap">
-    <aside class="sb" style="{{asideSty}}">
-      <nav class="sbnav" style="display:flex;flex-direction:column;gap:4px;padding:16px 12px;flex:1">
+    <aside class="sb" style="{{asideSty}}; background:#fff;">
+      <nav class="sbnav" style="display:flex;flex-direction:column;gap:6px;padding:20px 12px;flex:1">
         <sc-for list="{{nav}}" as="n" hint-placeholder-count="9">
-          <a href="{{n.href}}" style="{{n.sty}}" aria-current="{{n.cur}}" title="{{n.label}}">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"/></svg>
+          <a href="{{n.href}}" class="nav-link" style="{{n.sty}}" aria-current="{{n.cur}}" title="{{n.label}}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"/></svg>
             <span style="{{labelSty}}">{{n.label}}</span>
-            <sc-if value="{{n.dot}}" hint-placeholder-val="{{false}}"><span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#d93025" aria-label="Ada saran baru"></span></sc-if>
+            <sc-if value="{{n.dot}}" hint-placeholder-val="{{false}}">
+              <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#d93025;box-shadow:0 0 0 3px rgba(217, 48, 37, 0.2)" aria-label="Ada saran baru"></span>
+            </sc-if>
           </a>
         </sc-for>
       </nav>
-      <button type="button" onClick="{{onCollapse}}" style="display:flex;align-items:center;gap:12px;margin:8px 12px 16px;padding:10px 14px;border:0;background:none;font-size:14px;font-weight:500;color:#3b3a36;cursor:pointer;border-radius:10px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>
+      <button type="button" onClick="{{onCollapse}}" style="display:flex;align-items:center;gap:12px;margin:8px 12px 16px;padding:12px 14px;border:1px solid #eae7df;background:#fcfcfc;font-size:14px;font-weight:600;color:#3b3a36;cursor:pointer;border-radius:12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>
         <span style="{{labelSty}}">Ciutkan menu</span>
       </button>
     </aside>
 
-    <main style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:28px">
+    <index style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:32px">
       
       <!-- Greeting & Subtitle -->
-      <div style="display:flex;flex-direction:column;gap:4px">
-        <h1 style="margin:0;font-size:28px;font-weight:700">Halo, Budi</h1>
-        <p style="margin:0;font-size:15px;color:#5f5d57">Senin, 16 November 2026. Ada 1 wawancara dan 1 assessment minggu ini.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <h1 style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.5px">Halo, Budi</h1>
+        <p style="margin:0;font-size:16px;color:#5f5d57;font-weight:500;">Senin, 16 November 2026. Ada 1 wawancara dan 1 assessment minggu ini.</p>
       </div>
 
       <!-- Stat Cards Grid -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px">
-        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:13px;color:#5f5d57;font-weight:500">Kelengkapan My Profile</span>
-          <div style="font-size:28px;font-weight:700">86%</div>
-          <div style="width:100%;height:6px;background:#e8e6e0;border-radius:999px;overflow:hidden">
-            <div style="width:86%;height:100%;background:#f2b705"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:20px">
+        
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:14px;color:#5f5d57;font-weight:600">Kelengkapan Profil</span>
+            <div style="padding:6px;background:#fdf1cf;border-radius:8px;color:#f2b705">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
           </div>
-          <span style="font-size:12px;color:#5f5d57">Tinggal tambah 1 sertifikasi dan foto profil.</span>
+          <div style="font-size:36px;font-weight:800;color:#1b1b1a">86%</div>
+          <div style="width:100%;height:8px;background:#f1efe8;border-radius:999px;overflow:hidden">
+            <div class="progress-fill"></div>
+          </div>
+          <span style="font-size:13px;color:#7a7872;font-weight:500">Tinggal tambah 1 sertifikasi.</span>
         </div>
 
-        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:13px;color:#5f5d57;font-weight:500">CV aktif</span>
-          <div style="font-size:28px;font-weight:700">2</div>
-          <span style="font-size:12px;color:#5f5d57;margin-top:auto">1 draf (Resume utama) dan 1 CV terkunci.</span>
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:14px;color:#5f5d57;font-weight:600">CV Aktif</span>
+            <div style="padding:6px;background:#e7f4ed;border-radius:8px;color:#137333">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+          </div>
+          <div style="font-size:36px;font-weight:800;color:#1b1b1a">2</div>
+          <span style="font-size:13px;color:#7a7872;font-weight:500;margin-top:auto">1 draf (Utama) dan 1 terkunci.</span>
         </div>
 
-        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:13px;color:#5f5d57;font-weight:500">Lamaran berjalan</span>
-          <div style="font-size:28px;font-weight:700">3</div>
-          <span style="font-size:12px;color:#5f5d57;margin-top:auto">1 wawancara, 1 assessment, 1 menunggu.</span>
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+             <span style="font-size:14px;color:#5f5d57;font-weight:600">Lamaran Berjalan</span>
+             <div style="padding:6px;background:#e8f0fe;border-radius:8px;color:#1a73e8">
+               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+             </div>
+          </div>
+          <div style="font-size:36px;font-weight:800;color:#1b1b1a">3</div>
+          <span style="font-size:13px;color:#7a7872;font-weight:500;margin-top:auto">1 Wawancara, 1 Tes, 1 Tunggu.</span>
         </div>
 
-        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:13px;color:#5f5d57;font-weight:500">Saran untuk CV</span>
-          <div style="font-size:28px;font-weight:700">3</div>
-          <span style="font-size:12px;color:#5f5d57;margin-top:auto">Poin tanpa angka dan 2 bagian tersembunyi.</span>
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+             <span style="font-size:14px;color:#5f5d57;font-weight:600">Saran untuk CV</span>
+             <div style="padding:6px;background:#fce8e6;border-radius:8px;color:#d93025">
+               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+             </div>
+          </div>
+          <div style="font-size:36px;font-weight:800;color:#1b1b1a">3</div>
+          <span style="font-size:13px;color:#7a7872;font-weight:500;margin-top:auto">Perbaiki poin tanpa angka.</span>
         </div>
+
       </div>
 
       <!-- Dua Kolom: Langkah Berikutnya & Jadwal -->
-      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start">
+      <div class="dashboard-grid" style="display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start">
         
         <!-- Langkah Berikutnya -->
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <h2 style="margin:0;font-size:18px;font-weight:700">Langkah berikutnya</h2>
-          <div class="card" style="display:flex;flex-direction:column">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <h2 style="margin:0;font-size:20px;font-weight:800">Langkah berikutnya</h2>
+          <div class="card" style="display:flex;flex-direction:column;overflow:hidden">
             <sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
-              <a href="{{st.href}}" style="display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid #efede6;text-decoration:none;color:inherit">
-                <div style="width:28px;height:28px;border-radius:50%;background:#fdf1cf;color:#7a4f00;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:0 0 auto">{{st.num}}</div>
-                <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
-                  <span style="font-size:14px;font-weight:700;color:#1b1b1a">{{st.title}}</span>
-                  <span style="font-size:13px;color:#5f5d57">{{st.desc}}</span>
+              <a href="{{st.href}}" class="list-item-link" style="display:flex;align-items:center;gap:16px;padding:20px;border-bottom:1px solid #efede6;text-decoration:none;color:inherit">
+                <div style="width:36px;height:36px;border-radius:10px;background:#fdf1cf;color:#7a4f00;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:0 0 auto">{{st.num}}</div>
+                <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:0">
+                  <span style="font-size:15px;font-weight:700;color:#1b1b1a">{{st.title}}</span>
+                  <span style="font-size:13px;color:#5f5d57;font-weight:500">{{st.desc}}</span>
                 </div>
-                <span style="color:#8c897f;font-size:18px">›</span>
+                <span class="arrow-icon" style="color:#b5b3a9;font-size:24px;font-weight:300">›</span>
               </a>
             </sc-for>
           </div>
         </div>
 
         <!-- Jadwal Minggu Ini -->
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <h2 style="margin:0;font-size:18px;font-weight:700">Jadwal minggu ini</h2>
-          <div class="card" style="display:flex;flex-direction:column">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <h2 style="margin:0;font-size:20px;font-weight:800">Jadwal minggu ini</h2>
+          <div class="card" style="display:flex;flex-direction:column;overflow:hidden">
             <sc-for list="{{schedules}}" as="sc" hint-placeholder-count="3">
-              <div style="display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid #efede6;align-items:center">
-                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8f7f4;border-radius:8px;padding:8px 12px;min-width:44px;flex:0 0 auto">
-                  <span style="font-size:11px;font-weight:600;color:#5f5d57;text-transform:uppercase">{{sc.day}}</span>
-                  <span style="font-size:16px;font-weight:700;color:#1b1b1a">{{sc.date}}</span>
+              <div class="list-item-link" style="display:flex;gap:16px;padding:20px;border-bottom:1px solid #efede6;align-items:center">
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8f7f4;border:1px solid #eae7df;border-radius:10px;padding:8px 12px;min-width:48px;flex:0 0 auto;box-shadow:inset 0 2px 4px rgba(0,0,0,0.01)">
+                  <span style="font-size:11px;font-weight:700;color:#5f5d57;text-transform:uppercase">{{sc.day}}</span>
+                  <span style="font-size:18px;font-weight:800;color:#1b1b1a;margin-top:-2px">{{sc.date}}</span>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
-                  <span style="font-size:14px;font-weight:700;color:#1b1b1a">{{sc.title}}</span>
-                  <span style="font-size:12px;color:#5f5d57">{{sc.desc}}</span>
+                <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:0">
+                  <span style="font-size:15px;font-weight:700;color:#1b1b1a">{{sc.title}}</span>
+                  <span style="font-size:13px;color:#5f5d57;font-weight:500">{{sc.desc}}</span>
                 </div>
               </div>
             </sc-for>
@@ -161,25 +239,25 @@ button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2p
       </div>
 
       <!-- Lowongan yang Cocok -->
-      <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <h2 style="margin:0;font-size:18px;font-weight:700">Lowongan yang cocok</h2>
-          <a href="CareerPage.html" style="font-size:14px;font-weight:600;text-decoration:none">Lihat semua</a>
+          <h2 style="margin:0;font-size:20px;font-weight:800">Lowongan yang cocok</h2>
+          <a href="CareerPage.html" style="font-size:14px;font-weight:700;text-decoration:none;padding:6px 16px;background:#fdf1cf;border-radius:999px;color:#8a5a00">Lihat semua</a>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:20px">
           <sc-for list="{{jobs}}" as="j" hint-placeholder-count="3">
-            <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:12px">
-              <div style="display:flex;flex-direction:column;gap:2px">
-                <span style="font-size:16px;font-weight:700;color:#1b1b1a">{{j.title}}</span>
-                <span style="font-size:13px;color:#5f5d57">{{j.company}}</span>
+            <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px;cursor:pointer">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:17px;font-weight:800;color:#1b1b1a">{{j.title}}</span>
+                <span style="font-size:14px;color:#5f5d57;font-weight:500">{{j.company}}</span>
               </div>
-              <span style="align-self:flex-start;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#e7f4ed;color:#137333">{{j.match}}</span>
+              <span style="align-self:flex-start;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;background:linear-gradient(135deg, #e7f4ed, #d1efe0);color:#137333;box-shadow:0 2px 4px rgba(19, 115, 51, 0.1)">{{j.match}}</span>
             </div>
           </sc-for>
         </div>
       </div>
 
-    </main>
+    </index>
   </div>
 </div>
 </x-dc>
@@ -206,30 +284,37 @@ class Component extends DCLogic {
   }
   renderVals() {
     const s = this.state;
-    const sbW = s.collapsed ? 76 : 240;
+    const sbW = s.collapsed ? 84 : 260; /* Sedikit dilebarkan agar lebih lega */
     const nav = NAV.map((n) => {
       const sub = n.id === ACTIVE && n.sub;
       const top = n.id === ACTIVE && !n.sub;
       const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
       return {
         label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
-        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 600 : 500) +
-          ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px'
+        sty: 'display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;text-decoration:none;color:#1b1b1a;font-size:14.5px;font-weight:' + (top || sub || grp ? 700 : 500) +
+          ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 16 : 0) + 'px'
       };
     });
-    const pill = (on) => 'height:34px;padding:0 18px;border:0;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;' + (on ? 'background:#1b1b1a;color:#fff' : 'background:transparent;color:#4a4944');
+    const pill = (on) => 'height:36px;padding:0 20px;border:0;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;' + (on ? 'background:#1b1b1a;color:#fff' : 'background:transparent;color:#5f5d57; hover:background:#e8e6e0');
     
+    /* 
+     * PERUBAHAN LINK:
+     * Langkah 1 ke Saran.html
+     * Langkah 2 ke IsiCV.html (Kelengkapan CV)
+     * Langkah 3 ke Assessment.html
+     * Langkah 4 ke Jadwal.html
+     */
     const steps = [
-      { num: 1, title: 'Lihat 3 saran untuk Resume utama', desc: 'Tambahkan angka pada poin pengalaman.', href: 'Saran.html' },
-      { num: 2, title: 'Kerjakan Tes Logika dan Data', desc: 'Tokoloka, batas 20 Nov 2026, 45 menit.', href: 'Assessment.html' },
-      { num: 3, title: 'Siapkan wawancara HR PT Kreasi Data', desc: 'Rabu, 18 Nov 2026, 10.00 WIB.', href: 'Jadwal.html' },
-      { num: 4, title: 'Tambahkan sertifikasi ke My Profile', desc: 'Lalu tampilkan di Resume utama lewat Isi CV.', href: 'MyProfile.html' }
+      { num: 1, title: 'Lihat 3 saran untuk CV Anda', desc: 'Perbaiki format dan tambahkan angka pengalaman.', href: 'Saran.html' },
+      { num: 2, title: 'Lengkapi data profil di Isi CV', desc: 'Tambahkan sertifikasi & foto profil untuk capai 100%.', href: 'IsiCV.html' },
+      { num: 3, title: 'Kerjakan Tes Logika dan Data', desc: 'Tokoloka, batas 20 Nov 2026, sisa 45 menit.', href: 'Assessment.html' },
+      { num: 4, title: 'Siapkan jadwal wawancara HR', desc: 'Rabu, 18 Nov 2026, 10.00 WIB.', href: 'Jadwal.html' }
     ];
 
     const schedules = [
-      { day: 'Rab', date: '18', title: 'Wawancara HR', desc: 'PT Kreasi Data · 10.00 WIB · Google Meet' },
-      { day: 'Jum', date: '20', title: 'Batas Tes Logika dan Data', desc: 'Tokoloka · sampai 23.59 WIB' },
-      { day: 'Sen', date: '23', title: 'Wawancara teknis', desc: 'PT Kreasi Data · menunggu konfirmasi jam' }
+      { day: 'Rab', date: '18', title: 'Wawancara HR', desc: 'PT Kreasi Data · 10.00 WIB · G-Meet' },
+      { day: 'Jum', date: '20', title: 'Batas Tes Logika', desc: 'Tokoloka · sampai 23.59 WIB' },
+      { day: 'Sen', date: '23', title: 'Wawancara teknis', desc: 'PT Kreasi Data · (Jam menyusul)' }
     ];
 
     const jobs = [
@@ -239,8 +324,8 @@ class Component extends DCLogic {
     ];
 
     return {
-      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #e8e6e0;display:flex;flex-direction:column;overflow-y:auto',
-      labelSty: s.collapsed ? 'display:none' : 'white-space:nowrap', collapseIconSty: 'flex:0 0 auto;' + (s.collapsed ? 'transform:rotate(180deg)' : ''),
+      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #e8e6e0;display:flex;flex-direction:column;overflow-y:auto;transition:all 0.3s ease',
+      labelSty: s.collapsed ? 'display:none' : 'white-space:nowrap', collapseIconSty: 'flex:0 0 auto;transition:all 0.3s ease;' + (s.collapsed ? 'transform:rotate(180deg)' : ''),
       onCollapse: () => this.setState({ collapsed: !s.collapsed }),
       idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
       onId: () => this.setState({ lang: 'id' }), onEn: () => this.setState({ lang: 'en' }),
