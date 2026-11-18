@@ -3,57 +3,66 @@
 <head>
 <meta charset="utf-8">
 <title>Schedule Radixa</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'Noto Sans',system-ui,sans-serif}
 a{color:#8a5a00}a:hover{color:#5c3c00}
 button{font-family:inherit}
 button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2px}
-.card{border:1px solid #e6e3da;border-radius:12px;background:#fff}
+.card{border:1px solid #ebe8de;border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(27,27,26,.04),0 8px 24px rgba(27,27,26,.05)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:12px;border:0;background:#1b1b1a;color:#fff;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none}
+.btn:disabled{background:#cfccc2;color:#6b6962;cursor:default}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:12px;border:0;background:#efede6;color:#1b1b1a;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 @media (max-width:900px){
   .sbnav{flex-direction:row !important;overflow-x:auto}
   .sb{flex:1 1 100% !important;max-width:none !important;border-right:0 !important;border-bottom:1px solid #e8e6e0}
 }
-  /* --- TAMBAHAN CSS LOGO MULAI DARI SINI --- */
-@keyframes logoLoadEffect {
-  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-  60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
-}
-.logo-x-anim {
-  height: 28px;
-  width: auto;
-  margin: 0 1px;
-  animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-.logo-text {
-  font-family: 'Noto Sans', system-ui, sans-serif;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #1b1b1a;
-  display: inline-flex;
-  align-items: center;
-}
+<!-- Ini adalah elemen style untuk logo-->
+  /* Animasi berdetak/muncul saat halaman diload */
+  @keyframes logoLoadEffect {
+    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+    60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .logo-x-anim {
+    height: 28px; /* Sesuaikan dengan tinggi font */
+    width: auto;
+    margin: 0 1px;
+    animation: logoLoadEffect 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  .logo-text {
+    font-family: 'Noto Sans', system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #1b1b1a; /* Warna teks RADI dan A */
+    display: inline-flex;
+    align-items: center;
+  }
 </style>
+
 </helmet>
 
 <div style="display:flex;flex-direction:column;min-height:100vh;background:#fff;color:#1b1b1a;font-family:'Noto Sans',system-ui,sans-serif">
   <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px;flex:0 0 auto;box-sizing:border-box;padding:0 24px;border-bottom:1px solid #e8e6e0">
-    <div class="logo-text" style="padding-left:12px; cursor:pointer;">
-      RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
-    </div>
+    <!-- Ini adalah elemen HTML untuk Header/Navigasi Anda -->
+<div class="logo-text" style="padding-left:12px; cursor:pointer;">
+  RADI<img src="assets/img/logo.png" alt="X" class="logo-x-anim">A
+</div>
     <div style="display:flex;align-items:center;gap:20px">
       <div style="display:flex;padding:3px;gap:3px;background:#f1efe8;border-radius:999px">
         <button type="button" onClick="{{onId}}" style="{{idSty}}">ID</button>
         <button type="button" onClick="{{onEn}}" style="{{enSty}}">EN</button>
       </div>
-      <a href="Main.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
+      <a href="index.html" style="color:#1b1b1a;font-size:14px;font-weight:600;text-decoration:none">Keluar</a>
     </div>
   </header>
   <div style="display:flex;flex:1 1 auto;flex-wrap:wrap">
@@ -61,43 +70,127 @@ button:focus-visible,a:focus-visible{outline:2px solid #f2b705;outline-offset:2p
       <nav class="sbnav" style="display:flex;flex-direction:column;gap:4px;padding:16px 12px;flex:1">
         <sc-for list="{{nav}}" as="n" hint-placeholder-count="9">
           <a href="{{n.href}}" style="{{n.sty}}" aria-current="{{n.cur}}" title="{{n.label}}">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto"><path d="{{n.d}}"></path></svg>
             <span style="{{labelSty}}">{{n.label}}</span>
             <sc-if value="{{n.dot}}" hint-placeholder-val="{{false}}"><span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#d93025" aria-label="Ada saran baru"></span></sc-if>
           </a>
         </sc-for>
       </nav>
       <button type="button" onClick="{{onCollapse}}" style="display:flex;align-items:center;gap:12px;margin:8px 12px 16px;padding:10px 14px;border:0;background:none;font-size:14px;font-weight:500;color:#3b3a36;cursor:pointer;border-radius:10px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{collapseIconSty}}"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"></path></svg>
         <span style="{{labelSty}}">Ciutkan menu</span>
       </button>
     </aside>
 
-    <main style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:24px">
+    <index style="flex:1 1 560px;min-width:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:24px">
       <div style="display:flex;flex-direction:column;gap:4px">
-        <h1 style="margin:0;font-size:28px;font-weight:700">Schedule</h1>
-        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Wawancara dan batas waktu dari semua lamaranmu. Zona waktu WIB.</p>
+        <h1 style="margin:0;font-size:30px;font-weight:800">Schedule</h1>
+        <p style="margin:0;font-size:15px;color:#5f5d57;line-height:1.5">Jadwal wawancara dan batas waktu dari semua lamaranmu. Zona waktu WIB.</p>
       </div>
 
-      <sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
-        <section style="display:flex;flex-direction:column;gap:12px;max-width:860px">
-          <h2 style="margin:0;font-size:16px;font-weight:700">{{g.title}}</h2>
-          <div class="card" style="display:flex;flex-direction:column">
-            <sc-for list="{{g.items}}" as="ev" hint-placeholder-count="2">
-              <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid #efede6">
-                <div style="flex:0 0 56px;display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:12px;color:#5f5d57">{{ev.day}}</span><span style="font-size:26px;font-weight:700">{{ev.date}}</span></div>
-                <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px">
-                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:15px;font-weight:600">{{ev.title}}</span><span style="{{ev.tagSty}}">{{ev.tag}}</span></div>
-                  <span style="font-size:13px;color:#4a4944">{{ev.who}}</span>
-                  <span style="font-size:13px;color:#5f5d57">{{ev.time}}</span>
-                </div>
-                <button type="button" onClick="{{ev.onRemind}}" aria-pressed="{{ev.reminding}}" style="{{ev.remSty}}">{{ev.remLabel}}</button>
+      <!-- Undangan dari HR -->
+      <section style="border-radius:22px;padding:24px 28px;background:linear-gradient(120deg,#fdf1cf 0%,#f9d867 100%);display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:0;flex:1 1 360px">
+          <span style="align-self:flex-start;padding:4px 12px;border-radius:999px;background:#1b1b1a;color:#f2b705;font-size:12px;font-weight:800">{{badge}}</span>
+          <h2 style="margin:0;font-size:26px;line-height:1.2;font-weight:800;text-wrap:balance">{{bannerTitle}}</h2>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3b3a36">{{bannerText}}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.7)">
+          <span style="font-size:12px;font-weight:700;color:#5f5d57">Batas memilih jadwal</span>
+          <span style="font-size:17px;font-weight:800">Jum, 20 Nov 2026 · 23.59 WIB</span>
+          <span style="{{deadSty}}">{{deadLabel}}</span>
+        </div>
+      </section>
+
+      <!-- Pemilih jadwal -->
+      <sc-if value="{{picking}}" hint-placeholder-val="{{true}}">
+        <section class="card" style="padding:24px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <div style="display:flex;flex-direction:column;gap:2px"><h2 style="margin:0;font-size:20px;font-weight:800">Pilih jadwal wawancara</h2><span style="font-size:13px;color:#5f5d57">Wawancara HR · 45 menit · dengan Rina Wulandari, HR Business Partner</span></div>
+            <ol style="margin:0;padding:0;list-style:none;display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{steps}}" as="st" hint-placeholder-count="3"><li style="{{st.sty}}">{{st.n}}. {{st.label}}</li></sc-for></ol>
+          </div>
+          <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+
+            <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:12px;max-width:440px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <button type="button" onClick="{{onPrev}}" aria-label="Bulan sebelumnya" style="width:40px;height:40px;border-radius:10px;border:1px solid #d9d6cd;background:#fff;cursor:pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+                <span style="font-size:16px;font-weight:800">{{monthLabel}}</span>
+                <button type="button" onClick="{{onNext}}" aria-label="Bulan berikutnya" style="width:40px;height:40px;border-radius:10px;border:1px solid #d9d6cd;background:#fff;cursor:pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
               </div>
-            </sc-for>
+              <div class="cal" aria-hidden="true"><sc-for list="{{dows}}" as="w" hint-placeholder-count="7"><span style="text-align:center;font-size:12px;font-weight:700;color:#5f5d57;padding:4px 0">{{w.t}}</span></sc-for></div>
+              <div class="cal" role="grid" aria-label="Kalender">
+                <sc-for list="{{cells}}" as="c" hint-placeholder-count="35">
+                  <button type="button" onClick="{{c.on}}" disabled="{{c.off}}" aria-pressed="{{c.sel}}" aria-label="{{c.aria}}" style="{{c.sty}}">{{c.label}}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#4a4944">
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:#fdf1cf;border:1.5px solid #f2b705"></span>Tersedia dari HR</span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:#1b1b1a"></span>Dipilih</span>
+              </div>
+            </div>
+
+            <div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:12px">
+              <h3 style="margin:0;font-size:15px;font-weight:800">Jam{{dateTitle}}</h3>
+              <sc-if value="{{noDate}}" hint-placeholder-val="{{true}}"><p style="margin:0;font-size:14px;line-height:1.6;color:#5f5d57;padding:16px;border-radius:12px;background:#fbf9f4;border:1px dashed #d9d6cd">Pilih tanggal di kalender untuk melihat jam yang tersedia.</p></sc-if>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px">
+                <sc-for list="{{slots}}" as="sl" hint-placeholder-count="5">
+                  <button type="button" onClick="{{sl.on}}" disabled="{{sl.off}}" aria-pressed="{{sl.sel}}" style="{{sl.sty}}"><span style="font-size:15px;font-weight:800">{{sl.t}}</span><span style="font-size:11px;font-weight:600">{{sl.sub}}</span></button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:12px">
+              <h3 style="margin:0;font-size:15px;font-weight:800">Format wawancara</h3>
+              <sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+                <button type="button" onClick="{{m.on}}" disabled="{{m.off}}" aria-pressed="{{m.sel}}" style="{{m.sty}}">
+                  <span style="display:flex;align-items:center;gap:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.icon}}"></path></svg><span style="font-size:15px;font-weight:800">{{m.title}}</span></span>
+                  <span style="font-size:13px;line-height:1.5;color:#4a4944">{{m.text}}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin:0;font-size:13px;font-weight:600;color:#8c1d18">{{err}}</p></sc-if>
+          <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;padding-top:16px;border-top:1px solid #efede6">
+            <span style="font-size:14px;color:#3b3a36;line-height:1.5">{{summary}}</span>
+            <button type="button" class="btn" onClick="{{onConfirm}}">Konfirmasi jadwal</button>
           </div>
         </section>
-      </sc-for>
-    </main>
+      </sc-if>
+
+      <!-- Terkonfirmasi -->
+      <sc-if value="{{confirmed}}" hint-placeholder-val="{{false}}">
+        <section class="card" role="status" style="padding:28px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+          <span style="flex:0 0 56px;height:56px;border-radius:50%;background:#e4f1e9;color:#25603d;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"></path></svg></span>
+          <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-size:24px;font-weight:800">Jadwal wawancara terkonfirmasi</h2><p style="margin:0;font-size:14px;color:#5f5d57">Undangan sudah dikirim ke budi.santoso@gmail.com dan tim HR PT Kreasi Data.</p></div>
+            <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px">
+              <dt style="color:#5f5d57">Tanggal</dt><dd style="margin:0;font-weight:700">{{cDate}}</dd>
+              <dt style="color:#5f5d57">Jam</dt><dd style="margin:0;font-weight:700">{{cTime}}</dd>
+              <dt style="color:#5f5d57">Format</dt><dd style="margin:0;font-weight:700">{{cMode}}</dd>
+              <dt style="color:#5f5d57">{{cWhereLabel}}</dt><dd style="margin:0;line-height:1.5">{{cWhere}}</dd>
+            </dl>
+            <div style="padding:14px 16px;border-radius:12px;background:#fbf9f4;border:1px solid #ece9e0;font-size:13px;line-height:1.7"><b>Yang perlu disiapkan</b><br>{{prep}}</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" class="btn2" onClick="{{onChange}}">Ubah jadwal</button><button type="button" class="btn2" onClick="{{onCancel}}">Batalkan</button></div>
+            <span style="font-size:12px;color:#6b6962">Jadwal masih bisa diubah sampai Jum, 20 Nov 2026 pukul 23.59 WIB.</span>
+          </div>
+        </section>
+      </sc-if>
+
+      <!-- Jadwal lainnya -->
+      <section style="display:flex;flex-direction:column;gap:12px;max-width:900px">
+        <h2 style="margin:0;font-size:18px;font-weight:800">Jadwal lainnya</h2>
+        <div class="card" style="display:flex;flex-direction:column;overflow:hidden">
+          <sc-for list="{{others}}" as="ev" hint-placeholder-count="3">
+            <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid #efede6">
+              <div style="flex:0 0 56px;display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:12px;color:#5f5d57">{{ev.day}}</span><span style="font-size:26px;font-weight:800">{{ev.date}}</span></div>
+              <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:3px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:15px;font-weight:700">{{ev.title}}</span><span style="{{ev.tagSty}}">{{ev.tag}}</span></div><span style="font-size:13px;color:#4a4944">{{ev.who}}</span><span style="font-size:13px;color:#5f5d57">{{ev.time}}</span></div>
+              <button type="button" onClick="{{ev.onRemind}}" aria-pressed="{{ev.reminding}}" style="{{ev.remSty}}">{{ev.remLabel}}</button>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </index>
   </div>
 </div>
 </x-dc>
@@ -115,62 +208,107 @@ const NAV = [
   { id: 'career', label: 'Career Page', href: 'CareerPage.html', d: 'M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18' }
 ];
 const ACTIVE = 'sched';
-const TAGS = {
-  Wawancara: 'background:#e3ecfb;color:#1d4a9c',
-  Batas: 'background:#fdf1cf;color:#7a4f00',
-  Acara: 'background:#efede6;color:#3b3a36'
+const DAYS = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+const TODAY = '2026-11-18';
+const BASE = ['09:00', '10:30', '13:00', '14:30', '16:00'];
+const AVAIL = {
+  '2026-11-23': ['09:00', '10:30', '13:00', '14:30', '16:00'], '2026-11-24': ['09:00', '13:00', '14:30'], '2026-11-25': ['10:30', '13:00', '16:00'],
+  '2026-11-26': ['09:00', '10:30', '14:30', '16:00'], '2026-11-27': ['09:00', '13:00'],
+  '2026-12-01': ['09:00', '10:30', '13:00', '14:30'], '2026-12-02': ['10:30', '13:00', '16:00'], '2026-12-03': ['09:00', '14:30']
 };
-const WEEKS = [
-  { title: 'Minggu ini · 16 – 22 Nov 2026', items: [
-    { id: 'v1', day: 'Rab', date: '18', title: 'Wawancara HR', tag: 'Wawancara', who: 'PT Kreasi Data · Data Analyst', time: '10.00 – 10.45 WIB · Google Meet' },
-    { id: 'v2', day: 'Jum', date: '20', title: 'Batas Tes Logika dan Data', tag: 'Batas', who: 'Tokoloka · Business Intelligence Analyst', time: 'Sampai 23.59 WIB · 45 menit' }
-  ] },
-  { title: 'Minggu depan · 23 – 29 Nov 2026', items: [
-    { id: 'v3', day: 'Sen', date: '23', title: 'Wawancara teknis', tag: 'Wawancara', who: 'PT Kreasi Data · Data Analyst', time: 'Jam menunggu konfirmasi perusahaan' },
-    { id: 'v4', day: 'Jum', date: '27', title: 'Batas Bahasa Inggris Bisnis', tag: 'Batas', who: 'Nusa Pangan · Junior Data Analyst', time: 'Sampai 23.59 WIB · 20 menit' },
-    { id: 'v5', day: 'Sab', date: '28', title: 'Webinar portofolio untuk Data Analyst pemula', tag: 'Acara', who: 'Contoh acara dari Career Page', time: '09.00 – 10.30 WIB · Daring' }
-  ] }
+const TAKEN = { '2026-11-23': ['10:30'], '2026-11-25': ['13:00'] };
+const DARING_ONLY = ['16:00'];
+const OTHERS = [
+  { id: 'v2', day: 'Jum', date: '20', title: 'Batas Tes Logika dan Data', tag: 'Batas', who: 'Tokoloka · Business Intelligence Analyst', time: 'Sampai 23.59 WIB · 45 menit', col: 'background:#fdf1cf;color:#7a4f00' },
+  { id: 'v4', day: 'Jum', date: '27', title: 'Batas Bahasa Inggris Bisnis', tag: 'Batas', who: 'Nusa Pangan · Junior Data Analyst', time: 'Sampai 23.59 WIB · 20 menit', col: 'background:#fdf1cf;color:#7a4f00' },
+  { id: 'v5', day: 'Sab', date: '28', title: 'Webinar portofolio untuk Data Analyst pemula', tag: 'Acara', who: 'Contoh acara dari Event jobs', time: '09.00 – 10.30 WIB · Daring', col: 'background:#efede6;color:#3b3a36' }
 ];
+const key = (y, m, d) => y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+const longDate = (k) => { const p = k.split('-'); const dt = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2])); return DAYS[dt.getDay()] + ', ' + Number(p[2]) + ' ' + MONTHS[Number(p[1]) - 1] + ' ' + p[0]; };
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { lang: 'id', collapsed: false, rem: { v1: true, v2: true } };
+    this.state = { lang: 'id', collapsed: false, y: 2026, m: 10, date: '', time: '', mode: '', err: '', confirmed: false, rem: { v2: true } };
   }
   renderVals() {
     const s = this.state;
     const sbW = s.collapsed ? 76 : 240;
     const nav = NAV.map((n) => {
-      const sub = n.id === ACTIVE && n.sub;
-      const top = n.id === ACTIVE && !n.sub;
-      const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
-      return {
-        label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
-        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 600 : 500) +
-          ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px'
-      };
+      const sub = n.id === ACTIVE && n.sub; const top = n.id === ACTIVE && !n.sub; const grp = n.id === 'cv' && ['cvs', 'isi', 'saran'].indexOf(ACTIVE) >= 0;
+      return { label: n.label, href: n.href, d: n.d, dot: !!n.dot, cur: n.id === ACTIVE ? 'page' : 'false',
+        sty: 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;text-decoration:none;color:#1b1b1a;font-size:14px;font-weight:' + (top || sub || grp ? 700 : 500) + ';background:' + (sub ? '#efede6' : top || grp ? '#fdf1cf' : 'transparent') + ';margin-left:' + (n.sub && !s.collapsed ? 14 : 0) + 'px' };
     });
     const pill = (on) => 'height:34px;padding:0 18px;border:0;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;' + (on ? 'background:#1b1b1a;color:#fff' : 'background:transparent;color:#4a4944');
-    const groups = WEEKS.map((w) => ({
-      title: w.title,
-      items: w.items.map((e) => {
-        const on = !!s.rem[e.id];
-        return {
-          day: e.day, date: e.date, title: e.title, tag: e.tag, who: e.who, time: e.time,
-          tagSty: 'padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;' + TAGS[e.tag],
-          reminding: on, remLabel: on ? 'Pengingat aktif' : 'Ingatkan saya',
-          remSty: 'height:36px;padding:0 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + (on ? '#1b1b1a' : '#d9d6cd') + ';background:' + (on ? '#1b1b1a' : '#fff') + ';color:' + (on ? '#fff' : '#1b1b1a'),
-          onRemind: () => this.setState({ rem: Object.assign({}, s.rem, { [e.id]: !on }) })
-        };
-      })
-    }));
+
+    // kalender
+    const first = new Date(s.y, s.m, 1);
+    const offset = (first.getDay() + 6) % 7;
+    const nDays = new Date(s.y, s.m + 1, 0).getDate();
+    const cells = [];
+    for (let i = 0; i < offset; i++) cells.push({ label: '', off: true, sel: false, aria: '', on: null, sty: 'height:44px;border:0;background:none' });
+    for (let d = 1; d <= nDays; d++) {
+      const k = key(s.y, s.m, d);
+      const av = !!AVAIL[k] && k >= TODAY;
+      const sel = s.date === k;
+      cells.push({ label: String(d), off: !av, sel, aria: longDate(k) + (av ? ', tersedia' : ', tidak tersedia'),
+        on: () => this.setState({ date: k, time: '', mode: '', err: '' }),
+        sty: 'height:44px;border-radius:10px;font-size:14px;font-weight:' + (av ? 800 : 500) + ';cursor:' + (av ? 'pointer' : 'default') + ';border:' + (sel ? '1.5px solid #1b1b1a' : av ? '1.5px solid #f2b705' : '1.5px solid transparent') + ';background:' + (sel ? '#1b1b1a' : av ? '#fdf1cf' : 'transparent') + ';color:' + (sel ? '#fff' : av ? '#1b1b1a' : '#a8a59b') });
+    }
+
+    // jam
+    const slots = s.date ? BASE.map((t) => {
+      const ok = (AVAIL[s.date] || []).indexOf(t) >= 0 && (TAKEN[s.date] || []).indexOf(t) < 0;
+      const sel = s.time === t;
+      return { t, sub: !ok ? 'Penuh' : DARING_ONLY.indexOf(t) >= 0 ? 'Hanya daring' : 'Tersedia', off: !ok, sel,
+        on: () => this.setState({ time: t, mode: DARING_ONLY.indexOf(t) >= 0 && s.mode === 'onsite' ? '' : s.mode, err: '' }),
+        sty: 'display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border-radius:12px;cursor:' + (ok ? 'pointer' : 'default') + ';border:' + (sel ? '2px solid #1b1b1a' : '1.5px solid #d9d6cd') + ';background:' + (sel ? '#1b1b1a' : ok ? '#fff' : '#f6f4ee') + ';color:' + (sel ? '#fff' : ok ? '#1b1b1a' : '#a8a59b') };
+    }) : [];
+
+    // format
+    const darOnly = DARING_ONLY.indexOf(s.time) >= 0;
+    const mDef = [
+      { id: 'onsite', title: 'Di kantor (onsite)', icon: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01', text: 'Kantor PT Kreasi Data, Menara Cakra Lt. 12, Jl. Jend. Sudirman, Jakarta.', off: darOnly },
+      { id: 'daring', title: 'Daring via Google Meet', icon: 'M3 7h12v10H3zM15 11l6-3v8l-6-3', text: 'Tautan Google Meet dikirim ke emailmu setelah konfirmasi.', off: false }
+    ];
+    const modes = mDef.map((m) => { const sel = s.mode === m.id; return { title: m.title, icon: m.icon, text: m.off ? 'Slot jam ini hanya tersedia untuk wawancara daring.' : m.text, off: m.off, sel,
+      on: () => this.setState({ mode: m.id, err: '' }),
+      sty: 'text-align:left;display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:14px;cursor:' + (m.off ? 'default' : 'pointer') + ';border:' + (sel ? '2px solid #1b1b1a' : '1.5px solid #d9d6cd') + ';background:' + (sel ? '#fdf4dc' : m.off ? '#f6f4ee' : '#fff') + ';color:' + (m.off ? '#a8a59b' : '#1b1b1a') }; });
+
+    const step = !s.date ? 1 : !s.time ? 2 : !s.mode ? 3 : 4;
+    const steps = ['Tanggal', 'Jam', 'Format'].map((l, i) => { const n = i + 1; const on = step === n; const dn = step > n;
+      return { n, label: l, sty: 'padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;background:' + (on ? '#1b1b1a' : dn ? '#e4f1e9' : '#efede6') + ';color:' + (on ? '#fff' : dn ? '#1d4a30' : '#4a4944') }; });
+    const modeLabel = s.mode === 'onsite' ? 'di kantor' : s.mode === 'daring' ? 'daring via Google Meet' : '';
+    const summary = s.date && s.time && s.mode ? longDate(s.date) + ', ' + s.time + ' WIB, ' + modeLabel : 'Pilih tanggal, jam, dan format untuk melanjutkan.';
+
+    const others = OTHERS.map((e) => { const on = !!s.rem[e.id];
+      return { day: e.day, date: e.date, title: e.title, tag: e.tag, who: e.who, time: e.time, tagSty: 'padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;' + e.col,
+        reminding: on, remLabel: on ? 'Pengingat aktif' : 'Ingatkan saya',
+        remSty: 'height:36px;padding:0 14px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid ' + (on ? '#1b1b1a' : '#d9d6cd') + ';background:' + (on ? '#1b1b1a' : '#fff') + ';color:' + (on ? '#fff' : '#1b1b1a'),
+        onRemind: () => this.setState({ rem: Object.assign({}, s.rem, { [e.id]: !on }) }) }; });
+
+    const isOn = s.mode === 'onsite';
     return {
-      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #e8e6e0;display:flex;flex-direction:column;overflow-y:auto',
+      nav, asideSty: 'flex:0 0 ' + sbW + 'px;max-width:' + sbW + 'px;box-sizing:border-box;border-right:1px solid #ebe8de;background:#fff;display:flex;flex-direction:column;overflow-y:auto',
       labelSty: s.collapsed ? 'display:none' : 'white-space:nowrap', collapseIconSty: 'flex:0 0 auto;' + (s.collapsed ? 'transform:rotate(180deg)' : ''),
-      onCollapse: () => this.setState({ collapsed: !s.collapsed }),
-      idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
+      onCollapse: () => this.setState({ collapsed: !s.collapsed }), idSty: pill(s.lang === 'id'), enSty: pill(s.lang === 'en'),
       onId: () => this.setState({ lang: 'id' }), onEn: () => this.setState({ lang: 'en' }),
-      groups
+      badge: s.confirmed ? 'Jadwal terkonfirmasi' : 'Lolos screening', bannerTitle: s.confirmed ? 'Sampai jumpa di wawancara HR, Budi.' : 'Selamat! Kamu lolos tahap screening PT Kreasi Data.',
+      bannerText: s.confirmed ? 'Datang 10 menit lebih awal atau masuk ruang Meet tepat waktu. Tim HR sudah menerima pilihanmu.' : 'Posisi Data Analyst. Tim HR sudah membuka beberapa slot wawancara. Pilih tanggal, jam, dan format yang paling cocok sebelum batas waktu.',
+      deadLabel: s.confirmed ? 'Masih bisa diubah sampai batas' : 'Sisa 2 hari lagi', deadSty: 'font-size:13px;font-weight:800;color:' + (s.confirmed ? '#25603d' : '#8c1d18'),
+      picking: !s.confirmed, confirmed: s.confirmed, steps,
+      monthLabel: MONTHS[s.m] + ' ' + s.y, dows: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'].map((t) => ({ t })), cells,
+      onPrev: () => this.setState(s.m === 0 ? { y: s.y - 1, m: 11 } : { m: s.m - 1 }), onNext: () => this.setState(s.m === 11 ? { y: s.y + 1, m: 0 } : { m: s.m + 1 }),
+      dateTitle: s.date ? ' · ' + longDate(s.date) : '', noDate: !s.date, slots, modes,
+      hasErr: !!s.err, err: s.err, summary,
+      onConfirm: () => { if (!s.date) { this.setState({ err: 'Pilih tanggal dulu dari kalender.' }); return; } if (!s.time) { this.setState({ err: 'Pilih jam wawancara.' }); return; } if (!s.mode) { this.setState({ err: 'Pilih format: di kantor atau daring.' }); return; } this.setState({ confirmed: true, err: '' }); },
+      cDate: s.date ? longDate(s.date) : '', cTime: s.time + ' – ' + (s.time ? (() => { const p = s.time.split(':'); const mm = Number(p[0]) * 60 + Number(p[1]) + 45; return String(Math.floor(mm / 60)).padStart(2, '0') + ':' + String(mm % 60).padStart(2, '0'); })() : '') + ' WIB',
+      cMode: isOn ? 'Di kantor (onsite)' : 'Daring via Google Meet', cWhereLabel: isOn ? 'Lokasi' : 'Tautan',
+      cWhere: isOn ? 'Kantor PT Kreasi Data, Menara Cakra Lt. 12, Jl. Jend. Sudirman, Jakarta. Lapor ke resepsionis.' : 'Tautan Google Meet akan dikirim ke emailmu paling lambat 1 jam sebelum wawancara.',
+      prep: isOn ? 'KTP asli, CV cetak, dan laptop jika ada portofolio. Datang 10 menit lebih awal.' : 'Laptop dengan kamera dan mikrofon, koneksi internet stabil, dan ruangan yang tenang. Masuk 5 menit lebih awal.',
+      onChange: () => this.setState({ confirmed: false }), onCancel: () => this.setState({ confirmed: false, date: '', time: '', mode: '' }),
+      others
     };
   }
 }
